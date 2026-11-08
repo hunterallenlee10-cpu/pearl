@@ -150,18 +150,10 @@ for (const [w, h] of [
   const bigOverPhoto = await cursorBig();
   await wheel(1400);
   await p.waitForTimeout(400);
-  const box = await tile.boundingBox().catch(() => null);
-  const expectBig = await p.evaluate(
-    ([x, y]) => !!document.elementFromPoint(x, y)?.closest("[data-cursor]"),
-    [(box?.x ?? 0) + (box?.width ?? 0) / 2, (box?.y ?? 0) + (box?.height ?? 0) / 2],
-  );
-  const mouseAt = await p.evaluate(() => null);
-  void mouseAt;
   const bigAfterScroll = await cursorBig();
   ok(
     `${tag}: cursor shows "view" over photos and updates while scrolling`,
     bigOverPhoto &&
-      typeof expectBig === "boolean" &&
       bigAfterScroll ===
         (await p.evaluate(() => {
           const c = document.querySelector("div.pointer-events-none.fixed.z-\\[90\\]");
