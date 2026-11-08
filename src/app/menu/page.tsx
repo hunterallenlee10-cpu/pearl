@@ -35,13 +35,18 @@ export default function MenuPage() {
 
       <section aria-labelledby="library-title" className="bg-flour pb-28">
         <div className="container-page">
-          <div className="flex flex-wrap items-end justify-between gap-4 border-t border-crust/15 pt-16">
+          <div className="border-crust/15 flex flex-wrap items-end justify-between gap-4 border-t pt-16">
             <h2 id="library-title" className="display-md">
               The rotating menu
             </h2>
-            <p className="max-w-sm text-crust-soft">
+            <p className="text-crust-soft max-w-sm">
               Not everything is out every weekend. Check the board above or{" "}
-              <a href={business.facebook} target="_blank" rel="noopener noreferrer" className="font-semibold text-crust underline">
+              <a
+                href={business.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-crust font-semibold underline"
+              >
                 Facebook
               </a>{" "}
               for what&rsquo;s on now.
@@ -72,7 +77,10 @@ export default function MenuPage() {
                     <ul className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
                       {pictured.map((it) => (
                         <li key={it.name} className="group">
-                          <div className="relative aspect-[4/5] overflow-hidden rounded-[var(--radius-card)] bg-parchment shadow-soft" data-cursor="view">
+                          <div
+                            className="bg-parchment shadow-soft relative aspect-[4/5] overflow-hidden rounded-[var(--radius-card)]"
+                            data-cursor="view"
+                          >
                             <Img
                               id={it.image!}
                               fill
@@ -80,31 +88,36 @@ export default function MenuPage() {
                               className="h-full w-full transition-transform duration-[1.2s] ease-(--ease-dough) group-hover:scale-[1.04]"
                             />
                             {it.badge && (
-                              <span className="absolute top-3 left-3 rounded-full bg-flour/95 px-3 py-1 text-xs font-semibold tracking-wide uppercase shadow-soft">
+                              <span className="bg-flour/95 shadow-soft absolute top-3 left-3 rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase">
                                 {it.badge}
                               </span>
                             )}
                           </div>
                           <p className="mt-3 flex items-baseline justify-between gap-2 font-semibold">
                             <span>{it.name}</span>
-                            {typeof it.price === "number" && <span className="font-display text-lg">${it.price}</span>}
+                            {typeof it.price === "number" && (
+                              <span className="font-display text-lg">${it.price}</span>
+                            )}
                           </p>
-                          {it.note && <p className="text-sm text-crust-soft">{it.note}</p>}
+                          {it.note && <p className="text-crust-soft text-sm">{it.note}</p>}
                         </li>
                       ))}
                     </ul>
                   )}
 
                   {plain.length > 0 && (
-                    <ul className="mt-8 grid gap-x-10 border-t border-crust/10 sm:grid-cols-2 lg:grid-cols-3">
+                    <ul className="border-crust/10 mt-8 grid gap-x-10 border-t sm:grid-cols-2 lg:grid-cols-3">
                       {plain.map((it) => (
-                        <li key={it.name} className="flex items-baseline justify-between gap-3 border-b border-crust/10 py-3.5">
+                        <li
+                          key={it.name}
+                          className="border-crust/10 flex items-baseline justify-between gap-3 border-b py-3.5"
+                        >
                           <span>
                             <span className="font-medium">{it.name}</span>
-                            {it.note && <span className="block text-sm text-crust-soft">{it.note}</span>}
+                            {it.note && <span className="text-crust-soft block text-sm">{it.note}</span>}
                           </span>
                           {it.badge && (
-                            <span className="shrink-0 rounded-full bg-parchment px-2.5 py-0.5 text-xs font-semibold tracking-wide uppercase">
+                            <span className="bg-parchment shrink-0 rounded-full px-2.5 py-0.5 text-xs font-semibold tracking-wide uppercase">
                               {it.badge}
                             </span>
                           )}

@@ -39,7 +39,11 @@ function limited(ip: string) {
   return recent.length > 5;
 }
 
-const titles = { preorder: "Pre-order request", cake: "Cinnamon roll cake request", custom: "Custom order request" };
+const titles = {
+  preorder: "Pre-order request",
+  cake: "Cinnamon roll cake request",
+  custom: "Custom order request",
+};
 
 function compose(d: z.infer<typeof schema>) {
   const lines = [
@@ -67,23 +71,42 @@ export async function sendRequest(_prev: SendResult | null, form: FormData): Pro
   }
   const d = parsed.data;
   if (d.kind === "custom" && !d.notes) {
-    return { ok: false, via: "error", message: "Tell me a little about what you have in mind.", fieldErrors: { notes: "Tell me a little about what you have in mind" } };
+    return {
+      ok: false,
+      via: "error",
+      message: "Tell me a little about what you have in mind.",
+      fieldErrors: { notes: "Tell me a little about what you have in mind" },
+    };
   }
   if (d.kind !== "custom" && !d.items && !d.details) {
-    return { ok: false, via: "error", message: "Pick at least one item.", fieldErrors: { items: "Pick at least one item" } };
+    return {
+      ok: false,
+      via: "error",
+      message: "Pick at least one item.",
+      fieldErrors: { items: "Pick at least one item" },
+    };
   }
 
   const h = await headers();
   const ip = h.get("x-forwarded-for")?.split(",")[0]?.trim() || h.get("x-real-ip") || "unknown";
   if (limited(ip)) {
-    return { ok: false, via: "error", message: "That's a lot of requests in a row. Please try again in a few minutes, or email me directly." };
+    return {
+      ok: false,
+      via: "error",
+      message: "That's a lot of requests in a row. Please try again in a few minutes, or email me directly.",
+    };
   }
 
   const { subject, text } = compose(d);
   const mailto = `mailto:${business.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
   const key = process.env.RESEND_API_KEY;
   if (!key) {
-    return { ok: false, via: "mailto", mailto, message: "Your email app will open with everything filled in. Just hit send." };
+    return {
+      ok: false,
+      via: "mailto",
+      mailto,
+      message: "Your email app will open with everything filled in. Just hit send.",
+    };
   }
   try {
     const { Resend } = await import("resend");
@@ -98,6 +121,12 @@ export async function sendRequest(_prev: SendResult | null, form: FormData): Pro
     if (error) throw new Error(error.message);
     return { ok: true, via: "email" };
   } catch {
-    return { ok: false, via: "mailto", mailto, message: "The website couldn't send it just now. Your email app will open with everything filled in instead." };
+    return {
+      ok: false,
+      via: "mailto",
+      mailto,
+      message:
+        "The website couldn't send it just now. Your email app will open with everything filled in instead.",
+    };
   }
 }

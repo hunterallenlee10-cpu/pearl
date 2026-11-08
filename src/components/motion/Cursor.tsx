@@ -1,5 +1,12 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+
+const QUERY = "(pointer: fine) and (hover: hover) and (prefers-reduced-motion: no-preference)";
+const subscribe = (cb: () => void) => {
+  const mq = window.matchMedia(QUERY);
+  mq.addEventListener("change", cb);
+  return () => mq.removeEventListener("change", cb);
+};
 
 /**
  * Desktop-only cursor companion: a small cream dot that grows into a soft circle reading
@@ -8,15 +15,12 @@ import { useEffect, useRef, useState } from "react";
  */
 export function Cursor() {
   const ref = useRef<HTMLDivElement>(null);
-  const [enabled, setEnabled] = useState(false);
+  const enabled = useSyncExternalStore(
+    subscribe,
+    () => window.matchMedia(QUERY).matches,
+    () => false,
+  );
   const [mode, setMode] = useState<"" | "view" | "external" | "link">("");
-
-  useEffect(() => {
-    const ok =
-      window.matchMedia("(pointer: fine) and (hover: hover)").matches &&
-      !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    setEnabled(ok);
-  }, []);
 
   useEffect(() => {
     if (!enabled) return;
@@ -74,7 +78,7 @@ export function Cursor() {
       style={{ mixBlendMode: big ? "normal" : "difference" }}
     >
       <div
-        className="flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full font-display text-[15px] italic transition-[width,height,background-color,color] duration-500 ease-(--ease-dough)"
+        className="font-display flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full text-[15px] italic transition-[width,height,background-color,color] duration-500 ease-(--ease-dough)"
         style={{
           width: big ? 76 : mode === "link" ? 30 : 10,
           height: big ? 76 : mode === "link" ? 30 : 10,

@@ -49,13 +49,19 @@ export function CakeBuilder() {
   return (
     <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
       <div className="lg:sticky lg:top-28 lg:self-start">
-        <div className="relative rounded-[var(--radius-card)] bg-[radial-gradient(circle_at_50%_40%,#fffaf1,#f1e4cf)] p-6 shadow-soft ring-1 ring-crust/10">
-          <CakeSvg frosting={color} sprinkles={sprinkles} accent={occasion === "Holiday" ? "#B4553A" : "#C99A5B"} />
-          <p className="mt-2 text-center font-hand text-2xl" aria-live="polite">
+        <div className="shadow-soft ring-crust/10 relative rounded-[var(--radius-card)] bg-[radial-gradient(circle_at_50%_40%,#fffaf1,#f1e4cf)] p-6 ring-1">
+          <CakeSvg
+            frosting={color}
+            sprinkles={sprinkles}
+            accent={occasion === "Holiday" ? "#B4553A" : "#C99A5B"}
+          />
+          <p className="font-hand mt-2 text-center text-2xl" aria-live="polite">
             {colorName} frosting · {sprinkleName.toLowerCase()} · {occasion.toLowerCase()}
           </p>
         </div>
-        <p className="mt-3 text-center text-sm text-crust-soft">An illustration, not a photo. Every real cake is made by hand.</p>
+        <p className="text-crust-soft mt-3 text-center text-sm">
+          An illustration, not a photo. Every real cake is made by hand.
+        </p>
       </div>
 
       <div>
@@ -80,8 +86,18 @@ export function CakeBuilder() {
               </label>
             ))}
             <label className="inline-flex">
-              <input type="radio" name="frosting" className="peer sr-only" checked={useCustom} onChange={() => setUseCustom(true)} />
-              <span className={swatch} style={{ background: "conic-gradient(#f4c6cf,#f7e3a3,#c9e8d2,#bfd7ea,#d9c8ec,#f4c6cf)" }} title="Custom colour">
+              <input
+                type="radio"
+                name="frosting"
+                className="peer sr-only"
+                checked={useCustom}
+                onChange={() => setUseCustom(true)}
+              />
+              <span
+                className={swatch}
+                style={{ background: "conic-gradient(#f4c6cf,#f7e3a3,#c9e8d2,#bfd7ea,#d9c8ec,#f4c6cf)" }}
+                title="Custom colour"
+              >
                 <span className="sr-only">Custom colour</span>
               </span>
             </label>
@@ -90,7 +106,13 @@ export function CakeBuilder() {
                 <label htmlFor={ids.custom} className="text-sm font-semibold">
                   Pick a colour
                 </label>
-                <input id={ids.custom} type="color" value={custom} onChange={(e) => setCustom(e.target.value)} className="h-11 w-14 cursor-pointer rounded-lg border-0 bg-transparent" />
+                <input
+                  id={ids.custom}
+                  type="color"
+                  value={custom}
+                  onChange={(e) => setCustom(e.target.value)}
+                  className="h-11 w-14 cursor-pointer rounded-lg border-0 bg-transparent"
+                />
               </span>
             )}
           </div>
@@ -101,8 +123,14 @@ export function CakeBuilder() {
           <div className="mt-4 flex flex-wrap gap-2">
             {SPRINKLES.map((s) => (
               <label key={s.id} className="inline-flex">
-                <input type="radio" name="sprinkles" className="peer sr-only" checked={sprinkles === s.id} onChange={() => setSprinkles(s.id)} />
-                <span className="inline-flex min-h-11 cursor-pointer items-center rounded-full px-4 font-semibold ring-1 ring-crust/25 peer-checked:bg-crust peer-checked:text-flour peer-focus-visible:outline-3 peer-focus-visible:outline-offset-3 peer-focus-visible:outline-wheat">
+                <input
+                  type="radio"
+                  name="sprinkles"
+                  className="peer sr-only"
+                  checked={sprinkles === s.id}
+                  onChange={() => setSprinkles(s.id)}
+                />
+                <span className="ring-crust/25 peer-checked:bg-crust peer-checked:text-flour peer-focus-visible:outline-wheat inline-flex min-h-11 cursor-pointer items-center rounded-full px-4 font-semibold ring-1 peer-focus-visible:outline-3 peer-focus-visible:outline-offset-3">
                   {s.label}
                 </span>
               </label>
@@ -119,7 +147,7 @@ export function CakeBuilder() {
               id={ids.occ}
               value={occasion}
               onChange={(e) => setOccasion(e.target.value)}
-              className="mt-3 w-full rounded-xl bg-flour px-4 py-3 shadow-[inset_0_0_0_1.5px_rgb(91_58_36/0.25)]"
+              className="bg-flour mt-3 w-full rounded-xl px-4 py-3 shadow-[inset_0_0_0_1.5px_rgb(91_58_36/0.25)]"
             >
               {OCCASIONS.map((o) => (
                 <option key={o}>{o}</option>
@@ -128,22 +156,23 @@ export function CakeBuilder() {
           </div>
           <div>
             <label htmlFor={ids.date} className="font-display text-2xl">
-              4. When <span className="font-sans text-base font-normal text-crust-soft">(optional)</span>
+              4. When <span className="text-crust-soft font-sans text-base font-normal">(optional)</span>
             </label>
             <input
               id={ids.date}
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="mt-3 w-full rounded-xl bg-flour px-4 py-3 shadow-[inset_0_0_0_1.5px_rgb(91_58_36/0.25)]"
+              className="bg-flour mt-3 w-full rounded-xl px-4 py-3 shadow-[inset_0_0_0_1.5px_rgb(91_58_36/0.25)]"
             />
           </div>
         </div>
 
-        <div className="mt-12 border-t border-crust/15 pt-10">
+        <div className="border-crust/15 mt-12 border-t pt-10">
           <h3 className="font-display text-2xl">5. Send it to me</h3>
-          <p className="mt-2 text-crust-soft">
-            I&rsquo;ll get back to you about the date and price. It&rsquo;s confirmed once you hear back from me.
+          <p className="text-crust-soft mt-2">
+            I&rsquo;ll get back to you about the date and price. It&rsquo;s confirmed once you hear back from
+            me.
           </p>
           <div className="mt-6">
             <RequestForm

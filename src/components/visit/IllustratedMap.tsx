@@ -17,18 +17,29 @@ export function IllustratedMap() {
           href={maps.googlePlace}
           target="_blank"
           rel="noopener noreferrer"
-          className="group block overflow-hidden rounded-[var(--radius-card)] bg-[#fbf6ee] shadow-lift ring-1 ring-crust/10"
+          className="group shadow-lift ring-crust/10 block overflow-hidden rounded-[var(--radius-card)] bg-[#fbf6ee] ring-1"
           aria-label={`Open ${business.address.oneLine} in Google Maps`}
           data-cursor="external"
         >
-          <svg viewBox={`120 40 ${mapBox.width - 160} ${mapBox.height - 110}`} className="block h-auto w-full" role="img" aria-labelledby="map-title map-desc">
+          <svg
+            viewBox={`120 40 ${mapBox.width - 160} ${mapBox.height - 110}`}
+            className="block h-auto w-full"
+            role="img"
+            aria-labelledby="map-title map-desc"
+          >
             <title id="map-title">Map to Pearl Bakery</title>
             <desc id="map-desc">
-              Pearl Bakery&rsquo;s farmstand is on Medley&rsquo;s Neck Road, just off Route 5 southeast of downtown
-              Leonardtown, across Breton Bay.
+              Pearl Bakery&rsquo;s farmstand is on Medley&rsquo;s Neck Road, just off Route 5 southeast of
+              downtown Leonardtown, across Breton Bay.
             </desc>
             <defs>
-              <pattern id="water-hatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(-30)">
+              <pattern
+                id="water-hatch"
+                width="10"
+                height="10"
+                patternUnits="userSpaceOnUse"
+                patternTransform="rotate(-30)"
+              >
                 <path d="M0 5h10" stroke="#8EA4BC" strokeWidth="1.2" strokeOpacity=".55" />
               </pattern>
               <filter id="wobble" x="-5%" y="-5%" width="110%" height="110%">
@@ -41,9 +52,37 @@ export function IllustratedMap() {
               <path d={mapWater} fill="#E6EEF2" fillRule="evenodd" />
               <path d={mapWater} fill="url(#water-hatch)" fillRule="evenodd" />
               <path d={mapWater} fill="none" stroke="#8EA4BC" strokeWidth="1.6" />
-              <path className="map-draw" pathLength={1} d={mapLocalRoads} fill="none" stroke="#5B3A24" strokeOpacity=".35" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-              <path className="map-draw" pathLength={1} d={mapMajorRoads} fill="none" stroke="#5B3A24" strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round" />
-              <path className="map-draw map-draw-late" pathLength={1} d={mapMedleysNeck} fill="none" stroke="#C99A5B" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+              <path
+                className="map-draw"
+                pathLength={1}
+                d={mapLocalRoads}
+                fill="none"
+                stroke="#5B3A24"
+                strokeOpacity=".35"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                className="map-draw"
+                pathLength={1}
+                d={mapMajorRoads}
+                fill="none"
+                stroke="#5B3A24"
+                strokeWidth="3.4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                className="map-draw map-draw-late"
+                pathLength={1}
+                d={mapMedleysNeck}
+                fill="none"
+                stroke="#C99A5B"
+                strokeWidth="6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </g>
 
             {/* labels */}
@@ -57,7 +96,9 @@ export function IllustratedMap() {
               </text>
             </g>
             <g fontFamily="var(--font-hand), cursive" fill="#5B3A24" fontSize="26">
-              <text x="770" y="600" transform="rotate(60 770 600)">Rt. 5</text>
+              <text x="770" y="600" transform="rotate(60 770 600)">
+                Rt. 5
+              </text>
               <text x={fx - 10} y={fy + 270} transform={`rotate(-68 ${fx - 10} ${fy + 270})`}>
                 Medley&rsquo;s Neck Rd
               </text>
@@ -67,17 +108,51 @@ export function IllustratedMap() {
             <g transform={`translate(${fx} ${fy})`}>
               <circle className="map-pulse" r="18" fill="#C99A5B" />
               <g transform="translate(-26 -70)">
-                <path d="M4 26 L26 8 L48 26 V54 H4 Z" fill="#FBF6EE" stroke="#5B3A24" strokeWidth="3" strokeLinejoin="round" />
-                <path d="M0 28 L26 6 L52 28" fill="none" stroke="#5B3A24" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
-                <rect x="18" y="32" width="16" height="22" fill="#C99A5B" stroke="#5B3A24" strokeWidth="2.5" />
+                <path
+                  d="M4 26 L26 8 L48 26 V54 H4 Z"
+                  fill="#FBF6EE"
+                  stroke="#5B3A24"
+                  strokeWidth="3"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M0 28 L26 6 L52 28"
+                  fill="none"
+                  stroke="#5B3A24"
+                  strokeWidth="3.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <rect
+                  x="18"
+                  y="32"
+                  width="16"
+                  height="22"
+                  fill="#C99A5B"
+                  stroke="#5B3A24"
+                  strokeWidth="2.5"
+                />
               </g>
               <circle r="7" fill="#5B3A24" stroke="#FBF6EE" strokeWidth="3" />
               <g transform="translate(34 -28)">
                 <rect x="0" y="-26" width="196" height="64" rx="12" fill="#2A1B12" />
-                <text x="14" y="0" fill="#FBF6EE" fontFamily="var(--font-display), Georgia, serif" fontSize="22">
+                <text
+                  x="14"
+                  y="0"
+                  fill="#FBF6EE"
+                  fontFamily="var(--font-display), Georgia, serif"
+                  fontSize="22"
+                >
                   Pearl Bakery
                 </text>
-                <text x="14" y="26" fill="#C99A5B" fontFamily="var(--font-sans), sans-serif" fontSize="15" fontWeight="600">
+                <text
+                  x="14"
+                  y="26"
+                  fill="#C99A5B"
+                  fontFamily="var(--font-sans), sans-serif"
+                  fontSize="15"
+                  fontWeight="600"
+                >
                   40960 Medley&rsquo;s Neck Rd
                 </text>
               </g>

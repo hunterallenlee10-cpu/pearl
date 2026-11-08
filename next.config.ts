@@ -6,8 +6,8 @@ const nextConfig: NextConfig = {
   images: {
     // Photos are pre-optimized by scripts/process-images.mjs and served through the custom
     // loaders in src/components/ui/Img.tsx; these widths line up with what the script generates.
-    deviceSizes: [640, 828, 1080, 1280, 1600, 2048],
-    imageSizes: [320, 480],
+    deviceSizes: [640, 828, 1080, 1600, 2048],
+    imageSizes: [],
   },
   async headers() {
     return [

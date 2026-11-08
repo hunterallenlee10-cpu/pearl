@@ -23,18 +23,35 @@ export function StepInside() {
   return (
     <section aria-labelledby="inside-title" className="step-inside relative">
       <StepInsideMotion>
-        <div data-bg className="absolute inset-0 -z-10 bg-flour" />
+        <div data-bg className="bg-flour absolute inset-0 -z-10" />
         <div className="container-page grid min-h-[100svh] items-center gap-12 py-24 md:grid-cols-12 md:gap-10 md:py-16">
           <div className="md:col-span-6 lg:col-span-5">
             <div
               data-photo-frame
-              className="relative mx-auto aspect-[3/4] w-full max-w-[30rem] overflow-hidden rounded-[var(--radius-card)] shadow-lift md:h-[min(82vh,46rem)] md:w-auto md:max-w-none"
+              className="shadow-lift relative mx-auto aspect-[3/4] w-full max-w-[30rem] overflow-hidden rounded-[var(--radius-card)] md:h-[min(82vh,46rem)] md:w-auto md:max-w-none"
             >
               <div data-photo className="absolute inset-0">
-                <Img id={photo} fill sizes="(min-width: 768px) 36vw, 92vw" className="h-full w-full" position="50% 50%" />
+                <Img
+                  id={photo}
+                  fill
+                  sizes="(min-width: 768px) 36vw, 92vw"
+                  className="h-full w-full"
+                  position="50% 50%"
+                />
               </div>
-              <div data-dusk aria-hidden className="absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_10%,transparent,rgb(20_12_6/.55))] opacity-0" />
-              <div data-bloom aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-1/3 opacity-0 mix-blend-screen" style={{ background: "radial-gradient(80% 100% at 50% 0%, rgb(255 200 120 / .35), transparent 70%)" }} />
+              <div
+                data-dusk
+                aria-hidden
+                className="absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_10%,transparent,rgb(20_12_6/.55))] opacity-0"
+              />
+              <div
+                data-bloom
+                aria-hidden
+                className="pointer-events-none absolute inset-x-0 top-0 h-1/3 opacity-0 mix-blend-screen"
+                style={{
+                  background: "radial-gradient(80% 100% at 50% 0%, rgb(255 200 120 / .35), transparent 70%)",
+                }}
+              />
               {BULBS.map(([x, y], i) => (
                 <span
                   key={i}
@@ -48,32 +65,47 @@ export function StepInside() {
           </div>
 
           <div className="md:col-span-6 lg:col-span-6 lg:col-start-7">
-            <p className="eyebrow text-wheat-ink transition-colors duration-700 [.is-night_&]:text-wheat">
+            <p className="eyebrow text-wheat-ink [.is-night_&]:text-wheat transition-colors duration-700">
               Step inside
             </p>
             <h2 id="inside-title" className="display-lg mt-4">
               The new farmstand.
             </h2>
-            <p data-copy className="mt-6 max-w-lg font-display text-2xl leading-snug italic md:text-3xl">
+            <p data-copy className="font-display mt-6 max-w-lg text-2xl leading-snug italic md:text-3xl">
               String lights, a checkered floor, and the smell of fresh bread.
             </p>
 
             <ul className="mt-12 grid gap-4 sm:grid-cols-3">
               <li data-card className="card-night overflow-hidden rounded-[var(--radius-card)]">
                 <div className="relative aspect-[4/3]">
-                  <Img id={honey} fill sizes="(min-width: 640px) 14rem, 92vw" className="h-full w-full" position="50% 35%" />
+                  <Img
+                    id={honey}
+                    fill
+                    sizes="(min-width: 640px) 14rem, 92vw"
+                    className="h-full w-full"
+                    position="50% 35%"
+                  />
                 </div>
                 <p className="p-4 font-semibold">Local honey</p>
               </li>
               <li data-card className="card-night overflow-hidden rounded-[var(--radius-card)]">
                 <div className="relative aspect-[4/3]">
-                  <Img id="chicken-duck-eggs" fill sizes="(min-width: 640px) 14rem, 92vw" className="h-full w-full" position="50% 40%" />
+                  <Img
+                    id="chicken-duck-eggs"
+                    fill
+                    sizes="(min-width: 640px) 14rem, 92vw"
+                    className="h-full w-full"
+                    position="50% 40%"
+                  />
                 </div>
                 {/* [CONFIRM: eggs still available] */}
                 <p className="p-4 font-semibold">Chicken &amp; duck eggs</p>
               </li>
-              <li data-card className="card-night flex flex-col justify-between rounded-[var(--radius-card)] p-4">
-                <QrDoodle className="size-16 text-wheat" />
+              <li
+                data-card
+                className="card-night flex flex-col justify-between rounded-[var(--radius-card)] p-4"
+              >
+                <QrDoodle className="text-wheat size-16" />
                 <div className="mt-6">
                   <p className="font-semibold">Cash, Venmo, or PayPal</p>
                   <p className="mt-1 text-sm opacity-75">There&rsquo;s a QR plaque right at the stand.</p>

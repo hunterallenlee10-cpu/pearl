@@ -4,10 +4,10 @@ export const metadata = { title: "This one sold out" };
 
 export default function NotFound() {
   return (
-    <section className="grid min-h-[100svh] place-items-center bg-flour px-[var(--gutter)] pt-[var(--nav-h)] pb-16 text-center">
+    <section className="bg-flour grid min-h-[100svh] place-items-center px-[var(--gutter)] pt-[var(--nav-h)] pb-16 text-center">
       <div>
         {/* an empty bread basket with a little "sold out" tag */}
-        <svg viewBox="0 0 260 180" className="mx-auto w-64 text-crust md:w-80" aria-hidden>
+        <svg viewBox="0 0 260 180" className="text-crust mx-auto w-64 md:w-80" aria-hidden>
           <g fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
             <path d="M30 80h200l-22 82H52z" fill="#F3EADB" />
             <path d="M44 100h172M50 120h160M56 140h148" strokeOpacity=".35" />
@@ -21,15 +21,23 @@ export default function NotFound() {
           <g transform="rotate(-12 214 52)">
             <path d="M190 36h52l8 16-8 16h-52z" fill="#2A1B12" />
             <circle cx="197" cy="52" r="3" fill="#FBF6EE" />
-            <text x="206" y="57" fill="#FBF6EE" fontFamily="var(--font-hand), cursive" fontSize="15" fontWeight="700">
+            <text
+              x="206"
+              y="57"
+              fill="#FBF6EE"
+              fontFamily="var(--font-hand), cursive"
+              fontSize="15"
+              fontWeight="700"
+            >
               sold out
             </text>
           </g>
         </svg>
-        <p className="eyebrow mt-10 text-wheat-ink">404</p>
+        <p className="eyebrow text-wheat-ink mt-10">404</p>
         <h1 className="display-lg mt-3">This one sold out.</h1>
-        <p className="mx-auto mt-5 max-w-md text-lg text-crust-soft">
-          The page you&rsquo;re after isn&rsquo;t on the shelf. There&rsquo;s fresh bread back at the start, though.
+        <p className="text-crust-soft mx-auto mt-5 max-w-md text-lg">
+          The page you&rsquo;re after isn&rsquo;t on the shelf. There&rsquo;s fresh bread back at the start,
+          though.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Link href="/" className="btn btn-primary">

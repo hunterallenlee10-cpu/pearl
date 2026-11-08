@@ -18,7 +18,10 @@ describe("status pill", () => {
   });
 
   it("Saturday before 9 → Opens today at 9 AM", () => {
-    expect(at("2026-11-07T08:59:00-05:00")).toMatchObject({ kind: "opens-today", label: "Opens today at 9 AM" });
+    expect(at("2026-11-07T08:59:00-05:00")).toMatchObject({
+      kind: "opens-today",
+      label: "Opens today at 9 AM",
+    });
     expect(at("2026-11-07T00:00:00-05:00").kind).toBe("opens-today");
   });
 
@@ -46,7 +49,10 @@ describe("status pill", () => {
   it("Sunday before 9 → Opens today; daytime → open; after sunset → Opens Saturday", () => {
     expect(at("2026-11-08T07:15:00-05:00").kind).toBe("opens-today");
     expect(at("2026-11-08T13:00:00-05:00").kind).toBe("open");
-    expect(at("2026-11-08T19:00:00-05:00")).toMatchObject({ kind: "opens-saturday", label: "Opens Saturday 9 AM" });
+    expect(at("2026-11-08T19:00:00-05:00")).toMatchObject({
+      kind: "opens-saturday",
+      label: "Opens Saturday 9 AM",
+    });
   });
 
   it("summer sunset is late (open at 8 PM on a June Saturday)", () => {

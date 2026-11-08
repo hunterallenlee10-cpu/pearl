@@ -63,7 +63,11 @@ export const campaigns: Campaign[] = [
         heading: "Desserts",
         items: [
           { name: "Apple Pie", price: 25 },
-          { name: "Cookie Pie", detail: "10\" chocolate chip cookie decorated with buttercream frosting", price: 30 },
+          {
+            name: "Cookie Pie",
+            detail: '10" chocolate chip cookie decorated with buttercream frosting',
+            price: 30,
+          },
         ],
       },
       {
@@ -99,9 +103,21 @@ export const cinnamonRollCake = {
 
 /** Past seasonal offers, shown on /pre-order as examples of what comes around. */
 export const pastSpecials = [
-  { title: "Christmas pre-orders", detail: "Cookie boxes and a Christmas Morning Brunch Box (2025)", image: "christmas-2025-preorder-menu" },
-  { title: "Christmas in July", detail: "Gingerbread blondies, peppermint mocha cookies, tree cake sugar cookies", image: "christmas-in-july-flyer" },
+  {
+    title: "Christmas pre-orders",
+    detail: "Cookie boxes and a Christmas Morning Brunch Box (2025)",
+    image: "christmas-2025-preorder-menu",
+  },
+  {
+    title: "Christmas in July",
+    detail: "Gingerbread blondies, peppermint mocha cookies, tree cake sugar cookies",
+    image: "christmas-in-july-flyer",
+  },
   { title: "Valentine's", detail: "Heart cookie cakes", image: "valentines-heart-cookie-cake" },
-  { title: "Fourth of July", detail: "Cookie cakes, plus a Friday pop-up", image: "HERO-fourth-of-july-cookie-cakes" },
+  {
+    title: "Fourth of July",
+    detail: "Cookie cakes, plus a Friday pop-up",
+    image: "HERO-fourth-of-july-cookie-cakes",
+  },
   { title: "Super Bowl", detail: "Pretzel bites and football cake pops", image: "football-cake-pops" },
 ];

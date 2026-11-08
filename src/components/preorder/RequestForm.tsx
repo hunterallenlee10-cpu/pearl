@@ -29,10 +29,25 @@ export function Field({
     <div>
       <label htmlFor={id} className="font-semibold">
         {label}
-        {required ? <span aria-hidden className="text-wheat-ink"> *</span> : <span className="font-normal text-crust-soft"> (optional)</span>}
+        {required ? (
+          <span aria-hidden className="text-wheat-ink">
+            {" "}
+            *
+          </span>
+        ) : (
+          <span className="text-crust-soft font-normal"> (optional)</span>
+        )}
       </label>
       {textarea ? (
-        <textarea id={id} name={name} rows={4} required={required} className={cls} aria-invalid={!!error || undefined} aria-describedby={error || hint ? `${id}-d` : undefined} />
+        <textarea
+          id={id}
+          name={name}
+          rows={4}
+          required={required}
+          className={cls}
+          aria-invalid={!!error || undefined}
+          aria-describedby={error || hint ? `${id}-d` : undefined}
+        />
       ) : (
         <input
           id={id}
@@ -46,7 +61,10 @@ export function Field({
         />
       )}
       {(error || hint) && (
-        <p id={`${id}-d`} className={`mt-1.5 text-sm ${error ? "font-semibold text-[#a3402a]" : "text-crust-soft"}`}>
+        <p
+          id={`${id}-d`}
+          className={`mt-1.5 text-sm ${error ? "font-semibold text-[#a3402a]" : "text-crust-soft"}`}
+        >
           {error ?? hint}
         </p>
       )}
@@ -85,10 +103,14 @@ export function RequestForm({
 
   if (state?.ok) {
     return (
-      <div role="status" className="rounded-[var(--radius-card)] bg-flour p-8 shadow-soft ring-1 ring-crust/10">
+      <div
+        role="status"
+        className="bg-flour shadow-soft ring-crust/10 rounded-[var(--radius-card)] p-8 ring-1"
+      >
         <p className="font-display text-3xl">Thank you! Request sent.</p>
         <p className="mt-3 text-lg">
-          {successNote ?? "I'll get back to you by email. Your order is reserved once you get my confirmation email."}
+          {successNote ??
+            "I'll get back to you by email. Your order is reserved once you get my confirmation email."}
         </p>
       </div>
     );
@@ -121,13 +143,18 @@ export function RequestForm({
         <button type="submit" disabled={pending} className="btn btn-primary disabled:opacity-60">
           {pending ? "Sending…" : submitLabel}
         </button>
-        <a href={`mailto:${business.email}`} className="text-sm font-semibold underline decoration-wheat underline-offset-4">
+        <a
+          href={`mailto:${business.email}`}
+          className="decoration-wheat text-sm font-semibold underline underline-offset-4"
+        >
           or email {business.email}
         </a>
       </div>
       <div aria-live="polite">
         {state && !state.ok && (
-          <p className={`rounded-xl p-4 ${state.via === "error" ? "bg-[#f6e3dc] text-[#7d2f1f]" : "bg-parchment"}`}>
+          <p
+            className={`rounded-xl p-4 ${state.via === "error" ? "bg-[#f6e3dc] text-[#7d2f1f]" : "bg-parchment"}`}
+          >
             {state.message}{" "}
             {state.via === "mailto" && (
               <a href={state.mailto} className="font-semibold underline">

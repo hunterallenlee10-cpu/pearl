@@ -10,7 +10,9 @@ export function PreorderForm({ campaign }: { campaign: Campaign }) {
   const set = (name: string, n: number) => setQty((q) => ({ ...q, [name]: Math.max(0, Math.min(12, n)) }));
   const chosen = all.filter((i) => (qty[i.name] ?? 0) > 0);
   const total = chosen.reduce((s, i) => s + i.price * qty[i.name], 0);
-  const itemsText = chosen.map((i) => `${qty[i.name]} × ${i.name}${i.detail ? ` (${i.detail})` : ""} — $${i.price} each`).join("\n");
+  const itemsText = chosen
+    .map((i) => `${qty[i.name]} × ${i.name}${i.detail ? ` (${i.detail})` : ""} — $${i.price} each`)
+    .join("\n");
 
   return (
     <RequestForm
@@ -25,18 +27,24 @@ export function PreorderForm({ campaign }: { campaign: Campaign }) {
           {campaign.sections.map((sec) => (
             <div key={sec.heading}>
               <p className="eyebrow text-wheat-ink">{sec.heading}</p>
-              <ul className="mt-2 divide-y divide-crust/10 border-y border-crust/10">
+              <ul className="divide-crust/10 border-crust/10 mt-2 divide-y border-y">
                 {sec.items.map((it) => {
                   const n = qty[it.name] ?? 0;
                   const id = `q-${it.name.replace(/\W+/g, "-")}`;
                   return (
                     <li key={it.name} className="flex items-center justify-between gap-4 py-3">
                       <label htmlFor={id} className="min-w-0">
-                        <span className="font-semibold">{it.name}</span> <span className="font-display">${it.price}</span>
-                        {it.detail && <span className="block text-sm text-crust-soft">{it.detail}</span>}
+                        <span className="font-semibold">{it.name}</span>{" "}
+                        <span className="font-display">${it.price}</span>
+                        {it.detail && <span className="text-crust-soft block text-sm">{it.detail}</span>}
                       </label>
-                      <div className="flex shrink-0 items-center rounded-full bg-flour ring-1 ring-crust/20">
-                        <button type="button" onClick={() => set(it.name, n - 1)} className="grid size-11 place-items-center rounded-full text-xl" aria-label={`One fewer ${it.name}`}>
+                      <div className="bg-flour ring-crust/20 flex shrink-0 items-center rounded-full ring-1">
+                        <button
+                          type="button"
+                          onClick={() => set(it.name, n - 1)}
+                          className="grid size-11 place-items-center rounded-full text-xl"
+                          aria-label={`One fewer ${it.name}`}
+                        >
                           −
                         </button>
                         <input
@@ -50,7 +58,12 @@ export function PreorderForm({ campaign }: { campaign: Campaign }) {
                           className="w-10 appearance-none bg-transparent text-center font-semibold [-moz-appearance:textfield] focus:outline-none [&::-webkit-inner-spin-button]:appearance-none"
                           aria-label={`Quantity of ${it.name}`}
                         />
-                        <button type="button" onClick={() => set(it.name, n + 1)} className="grid size-11 place-items-center rounded-full text-xl" aria-label={`One more ${it.name}`}>
+                        <button
+                          type="button"
+                          onClick={() => set(it.name, n + 1)}
+                          className="grid size-11 place-items-center rounded-full text-xl"
+                          aria-label={`One more ${it.name}`}
+                        >
                           +
                         </button>
                       </div>
@@ -63,7 +76,7 @@ export function PreorderForm({ campaign }: { campaign: Campaign }) {
         </div>
       </fieldset>
       <input type="hidden" name="items" value={itemsText} />
-      <p className="rounded-xl bg-flour p-4 text-lg" aria-live="polite">
+      <p className="bg-flour rounded-xl p-4 text-lg" aria-live="polite">
         {chosen.length ? (
           <>
             <span className="font-semibold">Estimated total: ${total}</span>

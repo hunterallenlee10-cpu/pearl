@@ -30,7 +30,11 @@ async function sheet(files, outFile) {
       const x = (i % COLS) * CELL;
       const y = Math.floor(i / COLS) * (CELL + LABEL);
       return [
-        { input: img, left: x + Math.round((CELL - meta.width) / 2), top: y + Math.round((CELL - meta.height) / 2) },
+        {
+          input: img,
+          left: x + Math.round((CELL - meta.width) / 2),
+          top: y + Math.round((CELL - meta.height) / 2),
+        },
         { input: label, left: x, top: y + CELL },
       ];
     }),
@@ -46,7 +50,9 @@ async function sheet(files, outFile) {
 
 if (rest[0] === "--folder") {
   const folder = rest[1];
-  const files = readdirSync(path.join(SRC, folder)).sort().map((f) => path.join(SRC, folder, f));
+  const files = readdirSync(path.join(SRC, folder))
+    .sort()
+    .map((f) => path.join(SRC, folder, f));
   mkdirSync(out, { recursive: true });
   for (let i = 0; i < files.length; i += 12) {
     await sheet(files.slice(i, i + 12), path.join(out, `${folder}-${i / 12 + 1}.jpg`));
@@ -54,7 +60,11 @@ if (rest[0] === "--folder") {
 } else if (rest[0] === "--heroes") {
   const files = readdirSync(SRC)
     .sort()
-    .flatMap((d) => readdirSync(path.join(SRC, d)).filter((f) => f.startsWith("HERO-")).map((f) => path.join(SRC, d, f)));
+    .flatMap((d) =>
+      readdirSync(path.join(SRC, d))
+        .filter((f) => f.startsWith("HERO-"))
+        .map((f) => path.join(SRC, d, f)),
+    );
   await sheet(files, out);
 } else {
   await sheet(rest, out);

@@ -11,8 +11,9 @@ export const HOW_IT_WORKS = [
 
 export function FindTheFarmstand({ headingLevel = 2 }: { headingLevel?: 1 | 2 }) {
   const H = headingLevel === 1 ? "h1" : "h2";
+  const H3 = headingLevel === 1 ? "h2" : "h3";
   return (
-    <section aria-labelledby="visit-title" className="relative bg-flour py-24 md:py-32">
+    <section aria-labelledby="visit-title" className="bg-flour relative py-24 md:py-32">
       <div className="container-page grid gap-14 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-5">
           <p className="eyebrow text-wheat-ink" data-reveal>
@@ -32,7 +33,7 @@ export function FindTheFarmstand({ headingLevel = 2 }: { headingLevel?: 1 | 2 })
               <span className="italic">until sold out or sunset</span>
             </p>
             <StatusPill />
-            <p className="max-w-md text-crust-soft">
+            <p className="text-crust-soft max-w-md">
               We moved just a couple houses down the road, into the white shed with the string lights.
             </p>
           </div>
@@ -46,15 +47,20 @@ export function FindTheFarmstand({ headingLevel = 2 }: { headingLevel?: 1 | 2 })
             </a>
           </div>
 
-          <h3 className="mt-14 font-display text-3xl" data-reveal>
+          <H3 className="font-display mt-14 text-3xl" data-reveal>
             How the stand works
-          </h3>
+          </H3>
           <ol className="mt-6 space-y-5">
             {HOW_IT_WORKS.map((s, i) => (
-              <li key={s.title} className="flex gap-4" data-reveal style={{ "--reveal-delay": `${i * 0.08}s` } as React.CSSProperties}>
+              <li
+                key={s.title}
+                className="flex gap-4"
+                data-reveal
+                style={{ "--reveal-delay": `${i * 0.08}s` } as React.CSSProperties}
+              >
                 <span
                   aria-hidden
-                  className="grid size-11 shrink-0 place-items-center rounded-full bg-parchment font-display text-xl ring-1 ring-crust/15"
+                  className="bg-parchment font-display ring-crust/15 grid size-11 shrink-0 place-items-center rounded-full text-xl ring-1"
                 >
                   {i + 1}
                 </span>

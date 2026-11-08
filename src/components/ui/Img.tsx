@@ -29,14 +29,25 @@ function loaderFor(img: ImageData, ext: "avif" | "webp"): ImageLoader {
  * A pre-optimized photo: AVIF with WebP fallback via <picture>, blur-up placeholder and
  * dominant-colour background so nothing flashes white. Built on next/image's getImageProps.
  */
-export function Img({ id, sizes, fill, priority, className, pictureClassName, alt, position, style, decorative }: Props) {
+export function Img({
+  id,
+  sizes,
+  fill,
+  priority,
+  className,
+  pictureClassName,
+  alt,
+  position,
+  style,
+  decorative,
+}: Props) {
   const img = typeof id === "string" ? getImage(id) : id;
   const common = {
     alt: decorative ? "" : (alt ?? img.alt),
     sizes,
     priority,
-    placeholder: "blur" as const,
-    blurDataURL: img.blurDataURL,
+    fetchPriority: priority ? ("high" as const) : ("low" as const),
+    placeholder: "empty" as const,
     ...(fill ? { fill: true as const } : { width: img.width, height: img.height }),
   };
   const {
@@ -54,7 +65,11 @@ export function Img({ id, sizes, fill, priority, className, pictureClassName, al
         className={className}
         style={{
           ...props.style,
+          // tiny blurred preview under the real photo (lighter than next/image's SVG blur wrapper)
           backgroundColor: img.dominantColor,
+          backgroundImage: priority ? undefined : `url(${img.blurDataURL})`,
+          backgroundSize: "cover",
+          backgroundPosition: position ?? img.position,
           objectFit: "cover",
           objectPosition: position ?? img.position,
           ...(fill ? {} : { height: "auto" }),

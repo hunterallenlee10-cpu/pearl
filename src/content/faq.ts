@@ -21,7 +21,7 @@ export const faqs: Faq[] = [
   },
   {
     q: "How do I know what's on the menu?",
-    a: "It changes every week. The \"This Weekend\" board on the menu page is kept up to date, and the full menu goes up on Facebook too.",
+    a: 'It changes every week. The "This Weekend" board on the menu page is kept up to date, and the full menu goes up on Facebook too.',
   },
   {
     q: "Did you move?",

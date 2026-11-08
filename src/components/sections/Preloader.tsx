@@ -56,7 +56,10 @@ function PreloaderInner() {
       } catch {}
       html.classList.add("hero-go");
       const opts = { duration: 480, easing: "cubic-bezier(.65,0,.35,1)", fill: "forwards" as const };
-      el.querySelector("[data-stage]")?.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 200, fill: "forwards" });
+      el.querySelector("[data-stage]")?.animate([{ opacity: 1 }, { opacity: 0 }], {
+        duration: 200,
+        fill: "forwards",
+      });
       top.animate([{ transform: "translateY(0)" }, { transform: "translateY(-102%)" }], opts);
       const last = bottom.animate([{ transform: "translateY(0)" }, { transform: "translateY(102%)" }], opts);
       last.onfinish = () => {
@@ -130,7 +133,7 @@ function PreloaderInner() {
       <div data-top className={half} style={{ clipPath: TOP_CLIP }} />
       <div data-bottom className={half} style={{ clipPath: BOTTOM_CLIP }} />
 
-      <div data-stage className="absolute inset-0 flex flex-col items-center justify-center text-crust">
+      <div data-stage className="text-crust absolute inset-0 flex flex-col items-center justify-center">
         <svg viewBox="0 0 200 200" className="h-44 w-44 overflow-visible md:h-60 md:w-60">
           <g data-dough style={{ transformOrigin: "100px 170px", transformBox: "view-box" }}>
             <path
@@ -139,7 +142,14 @@ function PreloaderInner() {
               stroke="#5B3A24"
               strokeWidth="3"
             />
-            <path d="M48 128c10 6 22 8 30 6" fill="none" stroke="#C99A5B" strokeWidth="2" strokeLinecap="round" opacity=".7" />
+            <path
+              d="M48 128c10 6 22 8 30 6"
+              fill="none"
+              stroke="#C99A5B"
+              strokeWidth="2"
+              strokeLinecap="round"
+              opacity=".7"
+            />
             <path
               data-score
               d="M62 96c20 20 56 26 84 18"
@@ -152,21 +162,36 @@ function PreloaderInner() {
               strokeDashoffset="1"
             />
           </g>
-          <g data-sprig style={{ opacity: 0, transformOrigin: "100px 160px", transformBox: "view-box" }} fill="none" stroke="#C99A5B" strokeWidth="3" strokeLinecap="round">
+          <g
+            data-sprig
+            style={{ opacity: 0, transformOrigin: "100px 160px", transformBox: "view-box" }}
+            fill="none"
+            stroke="#C99A5B"
+            strokeWidth="3"
+            strokeLinecap="round"
+          >
             <path d="M100 176V58" />
             {[0, 1, 2, 3].map((i) => {
               const y = 140 - i * 24;
               return (
                 <g key={i}>
-                  <path d={`M100 ${y}c-13-4-21-16-22-30 13 3 21 14 22 30z`} fill="#C99A5B" fillOpacity=".25" />
-                  <path d={`M100 ${y - 6}c13-4 21-16 22-30-13 3-21 14-22 30z`} fill="#C99A5B" fillOpacity=".25" />
+                  <path
+                    d={`M100 ${y}c-13-4-21-16-22-30 13 3 21 14 22 30z`}
+                    fill="#C99A5B"
+                    fillOpacity=".25"
+                  />
+                  <path
+                    d={`M100 ${y - 6}c13-4 21-16 22-30-13 3-21 14-22 30z`}
+                    fill="#C99A5B"
+                    fillOpacity=".25"
+                  />
                 </g>
               );
             })}
             <path d="M100 58c-4-12-3-24 0-36 3 12 4 24 0 36z" fill="#C99A5B" fillOpacity=".25" />
           </g>
         </svg>
-        <p className="mt-6 font-hand text-2xl tracking-wide">
+        <p className="font-hand mt-6 text-2xl tracking-wide">
           proofing… <span data-count>0</span>%
         </p>
       </div>

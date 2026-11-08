@@ -13,7 +13,8 @@ import path from "node:path";
 
 const args = Object.fromEntries(
   process.argv.slice(2).reduce((acc, a, i, arr) => {
-    if (a.startsWith("--")) acc.push([a.slice(2), arr[i + 1] && !arr[i + 1].startsWith("--") ? arr[i + 1] : true]);
+    if (a.startsWith("--"))
+      acc.push([a.slice(2), arr[i + 1] && !arr[i + 1].startsWith("--") ? arr[i + 1] : true]);
     return acc;
   }, []),
 );
@@ -68,7 +69,9 @@ for (const w of widths) {
     }
   }
   const hscroll = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
-  console.log(`${w}: ${errors.length ? "ERRORS: " + errors.join(" | ") : "no console errors"}; horizontal overflow ${hscroll}px`);
+  console.log(
+    `${w}: ${errors.length ? "ERRORS: " + errors.join(" | ") : "no console errors"}; horizontal overflow ${hscroll}px`,
+  );
   await ctx.close();
 }
 await browser.close();

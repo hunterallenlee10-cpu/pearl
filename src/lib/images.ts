@@ -19,7 +19,10 @@ const images = data as unknown as Record<string, ImageData>;
 
 export function getImage(id: string): ImageData {
   const img = images[id];
-  if (!img) throw new Error(`Unknown image "${id}". Add it to src/data/image-meta.ts and run npm run photos:process.`);
+  if (!img)
+    throw new Error(
+      `Unknown image "${id}". Add it to src/data/image-meta.ts and run npm run photos:process.`,
+    );
   return img;
 }
 

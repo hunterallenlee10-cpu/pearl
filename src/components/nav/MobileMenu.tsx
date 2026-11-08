@@ -7,7 +7,15 @@ import { StatusPill } from "./StatusPill";
 import { navLinks } from "./nav-links";
 
 /** Full-screen menu that opens like the top of a kraft-paper bag being unfolded. */
-export function MobileMenu({ open, onClose, pathname }: { open: boolean; onClose: () => void; pathname: string }) {
+export function MobileMenu({
+  open,
+  onClose,
+  pathname,
+}: {
+  open: boolean;
+  onClose: () => void;
+  pathname: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
 
@@ -50,7 +58,7 @@ export function MobileMenu({ open, onClose, pathname }: { open: boolean; onClose
       aria-modal="true"
       aria-label="Menu"
       hidden={!open}
-      className="kraft fixed inset-0 z-[70] flex flex-col text-crust lg:hidden"
+      className="kraft text-crust fixed inset-0 z-[70] flex flex-col lg:hidden"
       style={{ animation: open ? "bag-open 0.7s var(--ease-dough) both" : undefined }}
     >
       {/* serrated bag edge */}
@@ -70,7 +78,14 @@ export function MobileMenu({ open, onClose, pathname }: { open: boolean; onClose
           className="inline-flex min-h-11 items-center gap-2 rounded-full px-3 font-medium"
         >
           Close
-          <svg aria-hidden viewBox="0 0 20 20" className="size-5" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg
+            aria-hidden
+            viewBox="0 0 20 20"
+            className="size-5"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
             <path d="M4 4l12 12M16 4L4 16" strokeLinecap="round" />
           </svg>
         </button>
@@ -80,13 +95,17 @@ export function MobileMenu({ open, onClose, pathname }: { open: boolean; onClose
           {[{ href: "/", label: "Home" }, ...navLinks].map((l, i) => (
             <li
               key={l.href}
-              style={{ animation: open ? `menu-rise 0.8s var(--ease-dough) ${0.12 + i * 0.06}s both` : undefined }}
+              style={{
+                animation: open ? `menu-rise 0.8s var(--ease-dough) ${0.12 + i * 0.06}s both` : undefined,
+              }}
             >
               <Link
                 href={l.href}
                 onClick={onClose}
-                aria-current={(l.href === "/" ? pathname === "/" : pathname.startsWith(l.href)) ? "page" : undefined}
-                className="block py-1 font-display text-[clamp(2.75rem,13vw,4.5rem)] leading-[1.05] no-underline aria-[current=page]:italic"
+                aria-current={
+                  (l.href === "/" ? pathname === "/" : pathname.startsWith(l.href)) ? "page" : undefined
+                }
+                className="font-display block py-1 text-[clamp(2.75rem,13vw,4.5rem)] leading-[1.05] no-underline aria-[current=page]:italic"
               >
                 {l.label}
               </Link>
@@ -94,7 +113,7 @@ export function MobileMenu({ open, onClose, pathname }: { open: boolean; onClose
           ))}
         </ul>
       </nav>
-      <div className="container-page space-y-3 border-t border-crust/20 py-6">
+      <div className="container-page border-crust/20 space-y-3 border-t py-6">
         <StatusPill tone="light" />
         <p className="font-medium">{business.hours.line}</p>
         <p className="text-crust-soft">{business.address.oneLine}</p>

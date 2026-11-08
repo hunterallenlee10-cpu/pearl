@@ -52,23 +52,27 @@ export default function PreorderPage() {
       </PageHeader>
 
       {campaign && (
-        <section id="seasonal" aria-labelledby="seasonal-title" className="scroll-mt-24 bg-parchment py-20 md:py-28">
+        <section
+          id="seasonal"
+          aria-labelledby="seasonal-title"
+          className="bg-parchment scroll-mt-24 py-20 md:py-28"
+        >
           <div className="container-page grid gap-14 lg:grid-cols-12">
             <div className="lg:col-span-6">
               <GinghamMenuCard campaign={campaign} headingLevel={2} />
-              <div className="mt-10 rounded-[var(--radius-card)] bg-flour p-6 shadow-soft md:p-8">
+              <div className="bg-flour shadow-soft mt-10 rounded-[var(--radius-card)] p-6 md:p-8">
                 <h3 className="font-display text-2xl">How it works</h3>
                 <ul className="mt-4 space-y-3">
                   {campaign.rules.map((r) => (
                     <li key={r} className="flex gap-3">
-                      <span aria-hidden className="mt-2.5 size-1.5 shrink-0 rounded-full bg-wheat" />
+                      <span aria-hidden className="bg-wheat mt-2.5 size-1.5 shrink-0 rounded-full" />
                       <span>{r}</span>
                     </li>
                   ))}
                 </ul>
-                <p className="mt-5 text-sm text-crust-soft">
+                <p className="text-crust-soft mt-5 text-sm">
                   Questions?{" "}
-                  <a href={`mailto:${business.email}`} className="font-semibold text-crust underline">
+                  <a href={`mailto:${business.email}`} className="text-crust font-semibold underline">
                     {business.email}
                   </a>
                 </p>
@@ -78,19 +82,24 @@ export default function PreorderPage() {
               <h2 id="seasonal-title" className="sr-only">
                 Request a {campaign.shortTitle} order
               </h2>
-              <div className="rounded-[var(--radius-card)] bg-parchment lg:sticky lg:top-24">
+              <div className="bg-parchment rounded-[var(--radius-card)] lg:sticky lg:top-24">
                 <p className="eyebrow text-wheat-ink">Request a {campaign.shortTitle} order</p>
-                <p className="mt-3 font-display text-3xl leading-tight">
+                <p className="font-display mt-3 text-3xl leading-tight">
                   Orders close <em className="italic">midnight Sunday, Nov 22.</em>
                 </p>
-                <p className="mt-3 text-crust-soft">
-                  Submitting a request doesn&rsquo;t guarantee your order; it&rsquo;s reserved once you receive my
-                  confirmation email.
+                <p className="text-crust-soft mt-3">
+                  Submitting a request doesn&rsquo;t guarantee your order; it&rsquo;s reserved once you
+                  receive my confirmation email.
                 </p>
                 {hasRealUrl(campaign.formUrl) && (
                   <p className="mt-3">
                     Prefer Google Forms?{" "}
-                    <a href={campaign.formUrl} target="_blank" rel="noopener noreferrer" className="font-semibold underline decoration-wheat underline-offset-4">
+                    <a
+                      href={campaign.formUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="decoration-wheat font-semibold underline underline-offset-4"
+                    >
                       Use my order form <span aria-hidden>↗</span>
                     </a>
                   </p>
@@ -104,7 +113,11 @@ export default function PreorderPage() {
         </section>
       )}
 
-      <section id="cake-builder" aria-labelledby="cake-title" className="scroll-mt-24 bg-flour py-20 md:py-28">
+      <section
+        id="cake-builder"
+        aria-labelledby="cake-title"
+        className="bg-flour scroll-mt-24 py-20 md:py-28"
+      >
         <div className="container-page">
           <div className="grid items-end gap-10 md:grid-cols-[1.2fr_1fr]">
             <div>
@@ -114,7 +127,7 @@ export default function PreorderPage() {
               </h2>
               <p className="mt-6 max-w-2xl text-lg">{cinnamonRollCake.description}</p>
             </div>
-            <div className="relative ml-auto hidden aspect-[4/5] w-full max-w-[16rem] rotate-2 overflow-hidden rounded-[var(--radius-card)] shadow-lift md:block">
+            <div className="shadow-lift relative ml-auto hidden aspect-[4/5] w-full max-w-[16rem] rotate-2 overflow-hidden rounded-[var(--radius-card)] md:block">
               <Img id={cinnamonRollCake.image} fill sizes="16rem" className="h-full w-full" />
             </div>
           </div>
@@ -124,25 +137,29 @@ export default function PreorderPage() {
         </div>
       </section>
 
-      <section id="custom" aria-labelledby="custom-title" className="scroll-mt-24 bg-parchment py-20 md:py-28">
+      <section
+        id="custom"
+        aria-labelledby="custom-title"
+        className="bg-parchment scroll-mt-24 py-20 md:py-28"
+      >
         <div className="container-page grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <p className="eyebrow text-wheat-ink">Something else?</p>
             <h2 id="custom-title" className="display-md mt-4">
               Cookie boxes, cookie cakes, a big order for an event…
             </h2>
-            <p className="mt-5 text-lg text-crust-soft">
+            <p className="text-crust-soft mt-5 text-lg">
               Send me what you have in mind and I&rsquo;ll let you know what I can do.
             </p>
             {/* [CONFIRM: does she take custom orders beyond cinnamon roll cakes and seasonal menus?] */}
             <ul className="mt-10 grid grid-cols-2 gap-4">
               {pastSpecials.slice(0, 4).map((p) => (
                 <li key={p.title}>
-                  <div className="relative aspect-square overflow-hidden rounded-[var(--radius-card)] shadow-soft">
+                  <div className="shadow-soft relative aspect-square overflow-hidden rounded-[var(--radius-card)]">
                     <Img id={p.image} fill sizes="(min-width: 1024px) 18vw, 45vw" className="h-full w-full" />
                   </div>
                   <p className="mt-2 font-semibold">{p.title}</p>
-                  <p className="text-sm text-crust-soft">{p.detail}</p>
+                  <p className="text-crust-soft text-sm">{p.detail}</p>
                 </li>
               ))}
             </ul>

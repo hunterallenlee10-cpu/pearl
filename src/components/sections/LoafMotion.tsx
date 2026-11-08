@@ -38,9 +38,16 @@ export function LoafMotion({ children, count }: { children: ReactNode; count: nu
       panels.forEach((p) => {
         const spin = p.querySelector("[data-spin]");
         const big = p.querySelector("[data-bigname]");
-        const st = { trigger: p, containerAnimation: tween, start: "left right", end: "right left", scrub: true };
+        const st = {
+          trigger: p,
+          containerAnimation: tween,
+          start: "left right",
+          end: "right left",
+          scrub: true,
+        };
         if (spin) gsap.fromTo(spin, { rotate: -70 }, { rotate: 110, ease: "none", scrollTrigger: st });
-        if (big) gsap.fromTo(big, { xPercent: 22 }, { xPercent: -22, ease: "none", scrollTrigger: { ...st } });
+        if (big)
+          gsap.fromTo(big, { xPercent: 22 }, { xPercent: -22, ease: "none", scrollTrigger: { ...st } });
       });
       return () => {
         stRef.current = null;

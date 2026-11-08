@@ -5,15 +5,15 @@ import { MarqueeControls } from "./MarqueeControls";
 function Card({ quote, name, i }: { quote: string; name: string; i: number }) {
   return (
     <figure
-      className={`kraft relative w-[19rem] shrink-0 rounded-[var(--radius-card)] p-6 shadow-soft md:w-[23rem] ${
+      className={`kraft shadow-soft relative w-[19rem] shrink-0 rounded-[var(--radius-card)] p-6 md:w-[23rem] ${
         i % 3 === 0 ? "-rotate-1" : i % 3 === 1 ? "rotate-1" : ""
       }`}
     >
-      <span aria-hidden className="absolute -top-3 left-6 font-display text-6xl leading-none text-wheat">
+      <span aria-hidden className="font-display text-wheat absolute -top-3 left-6 text-6xl leading-none">
         &ldquo;
       </span>
       <blockquote className="font-display text-xl leading-snug md:text-[1.4rem]">{quote}</blockquote>
-      <figcaption className="mt-4 font-hand text-2xl text-wheat-ink">— {name}</figcaption>
+      <figcaption className="font-hand text-wheat-ink mt-4 text-2xl">— {name}</figcaption>
     </figure>
   );
 }
@@ -23,7 +23,10 @@ export function NeighborsSay() {
   const rows = [testimonials.slice(0, half), testimonials.slice(half)];
 
   return (
-    <section aria-labelledby="neighbors-title" className="neighbors relative overflow-hidden bg-flour py-24 md:py-32">
+    <section
+      aria-labelledby="neighbors-title"
+      className="neighbors bg-flour relative overflow-hidden py-24 md:py-32"
+    >
       <div className="container-page flex flex-wrap items-end justify-between gap-6">
         <div>
           <p className="eyebrow text-wheat-ink" data-reveal>
@@ -37,7 +40,7 @@ export function NeighborsSay() {
           href={business.facebookReviews}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-3 rounded-full bg-parchment px-5 py-3 font-semibold no-underline shadow-soft"
+          className="bg-parchment shadow-soft inline-flex items-center gap-3 rounded-full px-5 py-3 font-semibold no-underline"
           data-reveal
         >
           <span className="font-display text-3xl leading-none">{business.reviews.recommendPercent}%</span>
@@ -63,7 +66,7 @@ export function NeighborsSay() {
           {rows.map((row, r) => (
             <div key={r} className="overflow-hidden py-3">
               <div
-                className="marquee-track flex w-max gap-6 animate-marquee"
+                className="marquee-track animate-marquee flex w-max gap-6"
                 style={
                   {
                     "--marquee-duration": r === 0 ? "70s" : "80s",

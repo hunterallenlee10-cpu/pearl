@@ -76,7 +76,10 @@ async function fromDrive() {
       const f = queue.shift();
       const dest = path.join(outDir, f.folder, f.filename);
       await mkdir(path.dirname(dest), { recursive: true });
-      if (existsSync(dest) && (await stat(dest)).size === f.size) { done++; continue; }
+      if (existsSync(dest) && (await stat(dest)).size === f.size) {
+        done++;
+        continue;
+      }
       const url = `https://drive.usercontent.google.com/download?id=${f.id}&export=download&confirm=t`;
       for (let attempt = 1; ; attempt++) {
         try {
@@ -92,7 +95,10 @@ async function fromDrive() {
           process.stdout.write(`\r${done}/${manifest.length} ${f.folder}/${f.filename}`.padEnd(100));
           break;
         } catch (err) {
-          if (attempt >= 4) { console.error(`\nFAILED ${f.folder}/${f.filename}: ${err.message}`); break; }
+          if (attempt >= 4) {
+            console.error(`\nFAILED ${f.folder}/${f.filename}: ${err.message}`);
+            break;
+          }
           await new Promise((r) => setTimeout(r, 2 ** attempt * 1000));
         }
       }

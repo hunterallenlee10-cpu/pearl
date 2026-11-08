@@ -10,7 +10,7 @@ export function TrailerToFarmstand({ showLink = true }: { showLink?: boolean }) 
   const moved = timeline.find((e) => e.id === "moved")!;
 
   return (
-    <section aria-labelledby="story-title" className="relative overflow-hidden bg-parchment py-24 md:py-36">
+    <section aria-labelledby="story-title" className="bg-parchment relative overflow-hidden py-24 md:py-36">
       <TimelineMotion>
         <div className="container-page">
           <div className="max-w-3xl">
@@ -30,7 +30,15 @@ export function TrailerToFarmstand({ showLink = true }: { showLink?: boolean }) 
               viewBox="0 0 24 1000"
               preserveAspectRatio="none"
             >
-              <path d="M12 0V1000" stroke="rgb(91 58 36 / .15)" strokeWidth="2" strokeDasharray="2 10" strokeLinecap="round" vectorEffect="non-scaling-stroke" fill="none" />
+              <path
+                d="M12 0V1000"
+                stroke="rgb(91 58 36 / .15)"
+                strokeWidth="2"
+                strokeDasharray="2 10"
+                strokeLinecap="round"
+                vectorEffect="non-scaling-stroke"
+                fill="none"
+              />
               <path
                 data-line
                 d="M12 0V1000"
@@ -48,14 +56,17 @@ export function TrailerToFarmstand({ showLink = true }: { showLink?: boolean }) 
             {entries.map((e, i) => {
               const right = i % 2 === 1;
               return (
-                <li key={e.id} className="relative grid gap-8 pb-20 pl-12 md:grid-cols-2 md:gap-20 md:pb-28 md:pl-0">
+                <li
+                  key={e.id}
+                  className="relative grid gap-8 pb-20 pl-12 md:grid-cols-2 md:gap-20 md:pb-28 md:pl-0"
+                >
                   <span
                     aria-hidden
-                    className="absolute top-2 left-[3px] size-[18px] rounded-full border-[3px] border-parchment bg-wheat shadow-[0_0_0_2px_var(--color-wheat)] md:left-1/2 md:-translate-x-1/2"
+                    className="border-parchment bg-wheat absolute top-2 left-[3px] size-[18px] rounded-full border-[3px] shadow-[0_0_0_2px_var(--color-wheat)] md:left-1/2 md:-translate-x-1/2"
                   />
                   <div className={`${right ? "md:order-2" : "md:text-right"} md:pt-0`} data-reveal>
-                    <p className="font-hand text-2xl text-wheat-ink">{e.when}</p>
-                    <h3 className="mt-1 font-display text-4xl leading-none md:text-5xl">{e.title}</h3>
+                    <p className="font-hand text-wheat-ink text-2xl">{e.when}</p>
+                    <h3 className="font-display mt-1 text-4xl leading-none md:text-5xl">{e.title}</h3>
                     {e.quote && (
                       <blockquote className={`mt-6 ${right ? "" : "md:ml-auto"} max-w-md`}>
                         <p className="font-display text-3xl leading-tight italic md:text-[2.4rem]">
@@ -64,7 +75,7 @@ export function TrailerToFarmstand({ showLink = true }: { showLink?: boolean }) 
                       </blockquote>
                     )}
                     {e.body && (
-                      <p className={`mt-4 max-w-md text-lg text-crust-soft ${right ? "" : "md:ml-auto"}`}>
+                      <p className={`text-crust-soft mt-4 max-w-md text-lg ${right ? "" : "md:ml-auto"}`}>
                         {e.quote ? <>&ldquo;{e.body}&rdquo;</> : e.body}
                       </p>
                     )}
@@ -75,12 +86,17 @@ export function TrailerToFarmstand({ showLink = true }: { showLink?: boolean }) 
                         key={id}
                         data-reveal
                         style={{ "--reveal-delay": `${k * 0.08}s` } as React.CSSProperties}
-                        className={`relative w-[min(100%,15rem)] bg-flour p-2.5 pb-3 shadow-soft ${tilt[(i + k) % tilt.length]} ${
+                        className={`bg-flour shadow-soft relative w-[min(100%,15rem)] p-2.5 pb-3 ${tilt[(i + k) % tilt.length]} ${
                           e.images.length === 1 ? "md:w-[22rem]" : ""
                         }`}
                       >
                         <div className="relative aspect-[4/5] overflow-hidden">
-                          <Img id={id} fill sizes="(min-width: 768px) 22rem, 70vw" className="h-full w-full" />
+                          <Img
+                            id={id}
+                            fill
+                            sizes="(min-width: 768px) 22rem, 70vw"
+                            className="h-full w-full"
+                          />
                         </div>
                       </figure>
                     ))}
@@ -93,34 +109,56 @@ export function TrailerToFarmstand({ showLink = true }: { showLink?: boolean }) 
             <li className="relative grid items-center gap-10 pl-12 md:grid-cols-2 md:gap-20 md:pl-0">
               <span
                 aria-hidden
-                className="absolute top-2 left-[3px] size-[18px] rounded-full border-[3px] border-parchment bg-crust shadow-[0_0_0_2px_var(--color-crust)] md:left-1/2 md:-translate-x-1/2"
+                className="border-parchment bg-crust absolute top-2 left-[3px] size-[18px] rounded-full border-[3px] shadow-[0_0_0_2px_var(--color-crust)] md:left-1/2 md:-translate-x-1/2"
               />
               <div className="md:text-right" data-reveal>
-                <p className="font-hand text-2xl text-wheat-ink">{moved.when}</p>
-                <h3 className="mt-1 font-display text-5xl leading-none md:text-6xl">{moved.title}</h3>
-                <p className="mt-4 max-w-md text-lg text-crust-soft md:ml-auto">{moved.body}</p>
+                <p className="font-hand text-wheat-ink text-2xl">{moved.when}</p>
+                <h3 className="font-display mt-1 text-5xl leading-none md:text-6xl">{moved.title}</h3>
+                <p className="text-crust-soft mt-4 max-w-md text-lg md:ml-auto">{moved.body}</p>
                 <div className="mt-8 hidden md:ml-auto md:block md:w-56">
-                  <div className="-rotate-3 bg-flour p-2 shadow-soft">
+                  <div className="bg-flour shadow-soft -rotate-3 p-2">
                     <div className="relative aspect-[3/4] overflow-hidden">
-                      <Img id="we-moved-announcement-40960-medleys-neck" fill sizes="14rem" className="h-full w-full" />
+                      <Img
+                        id="we-moved-announcement-40960-medleys-neck"
+                        fill
+                        sizes="14rem"
+                        className="h-full w-full"
+                      />
                     </div>
                   </div>
                 </div>
               </div>
               <div className="relative">
-                <div data-morph className="relative aspect-square overflow-hidden rounded-[var(--radius-card)] shadow-lift">
+                <div
+                  data-morph
+                  className="shadow-lift relative aspect-square overflow-hidden rounded-[var(--radius-card)]"
+                >
                   <div className="absolute inset-0">
-                    <Img id="HERO-trailer-wide-green-field" fill sizes="(min-width: 768px) 40vw, 85vw" className="h-full w-full" />
+                    <Img
+                      id="HERO-trailer-wide-green-field"
+                      fill
+                      sizes="(min-width: 768px) 40vw, 85vw"
+                      className="h-full w-full"
+                    />
                   </div>
                   <div data-morph-to className="absolute inset-0">
-                    <Img id="HERO-shed-exterior-fall-field" fill sizes="(min-width: 768px) 40vw, 85vw" className="h-full w-full" />
+                    <Img
+                      id="HERO-shed-exterior-fall-field"
+                      fill
+                      sizes="(min-width: 768px) 40vw, 85vw"
+                      className="h-full w-full"
+                    />
                   </div>
                   <p className="absolute bottom-3 left-3 flex gap-2 text-sm font-semibold">
-                    <span data-label-from className="rounded-full bg-flour/90 px-3 py-1 text-crust">2025: the trailer</span>
-                    <span data-label-to className="rounded-full bg-crust px-3 py-1 text-flour">Now: the farmstand</span>
+                    <span data-label-from className="bg-flour/90 text-crust rounded-full px-3 py-1">
+                      2025: the trailer
+                    </span>
+                    <span data-label-to className="bg-crust text-flour rounded-full px-3 py-1">
+                      Now: the farmstand
+                    </span>
                   </p>
                 </div>
-                <div className="pointer-events-none absolute -top-14 -left-4 flex items-end gap-1 text-crust md:-top-20 md:-left-28">
+                <div className="text-crust pointer-events-none absolute -top-14 -left-4 flex items-end gap-1 md:-top-20 md:-left-28">
                   <svg aria-hidden viewBox="0 0 160 90" className="w-32 md:w-40">
                     <path
                       data-dots
@@ -131,9 +169,18 @@ export function TrailerToFarmstand({ showLink = true }: { showLink?: boolean }) 
                       strokeLinecap="round"
                       strokeDasharray="0.5 9"
                     />
-                    <path d="M138 34l8 12 6-14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <path
+                      d="M138 34l8 12 6-14"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
                   </svg>
-                  <span className="mb-10 w-36 font-hand text-xl leading-tight md:w-44 md:text-2xl">a couple houses down the road</span>
+                  <span className="font-hand mb-10 w-36 text-xl leading-tight md:w-44 md:text-2xl">
+                    a couple houses down the road
+                  </span>
                 </div>
               </div>
             </li>

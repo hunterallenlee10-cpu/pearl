@@ -13,16 +13,24 @@ export function PageHeader({
   children?: ReactNode;
 }) {
   return (
-    <header className="relative overflow-hidden bg-flour pt-[calc(var(--nav-h)+4rem)] pb-14 md:pt-[calc(var(--nav-h)+6rem)] md:pb-20">
+    <header className="bg-flour relative overflow-hidden pt-[calc(var(--nav-h)+4rem)] pb-14 md:pt-[calc(var(--nav-h)+6rem)] md:pb-20">
       <div className="container-page">
         <p className="eyebrow text-wheat-ink" data-reveal>
           {eyebrow}
         </p>
-        <h1 className="display-xl mt-5 max-w-[14ch]" data-reveal style={{ "--reveal-delay": "0.05s" } as React.CSSProperties}>
+        <h1
+          className="display-xl mt-5 max-w-[14ch]"
+          data-reveal
+          style={{ "--reveal-delay": "0.05s" } as React.CSSProperties}
+        >
           {title}
         </h1>
         {intro && (
-          <p className="mt-7 max-w-2xl text-xl leading-relaxed text-crust-soft" data-reveal style={{ "--reveal-delay": "0.12s" } as React.CSSProperties}>
+          <p
+            className="text-crust-soft mt-7 max-w-2xl text-xl leading-relaxed"
+            data-reveal
+            style={{ "--reveal-delay": "0.12s" } as React.CSSProperties}
+          >
             {intro}
           </p>
         )}

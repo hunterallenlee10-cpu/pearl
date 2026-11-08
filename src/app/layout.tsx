@@ -6,12 +6,13 @@ import { SiteFooter } from "@/components/nav/SiteFooter";
 import { MotionProvider } from "@/components/motion/MotionProvider";
 import { Cursor } from "@/components/motion/Cursor";
 import { Preloader } from "@/components/sections/Preloader";
+import { ViewTransitions } from "@/components/motion/ViewTransitions";
 import { bakeryJsonLd, siteUrl } from "@/lib/seo";
 import "./globals.css";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
-  axes: ["SOFT", "WONK", "opsz"],
+  axes: ["SOFT", "WONK"], // opsz dropped: it doubles the file size; headlines already use the display cut
   style: ["normal", "italic"],
   variable: "--font-fraunces",
   display: "swap",
@@ -26,6 +27,7 @@ const caveat = Caveat({
   weight: ["500", "700"],
   variable: "--font-caveat",
   display: "swap",
+  preload: false, // only used below the fold (chalkboard, notes)
 });
 
 export const metadata: Metadata = {
@@ -54,28 +56,37 @@ const boot = `(function(){var d=document.documentElement;d.classList.add('js');t
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${instrument.variable} ${caveat.variable}`} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${fraunces.variable} ${instrument.variable} ${caveat.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <script dangerouslySetInnerHTML={{ __html: boot }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(bakeryJsonLd()) }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(bakeryJsonLd()) }}
+        />
       </head>
       <body>
         <a
           href="#main"
-          className="sr-only-focusable fixed top-3 left-3 z-[100] rounded-full bg-crust px-5 py-3 font-semibold text-flour"
+          className="sr-only-focusable bg-crust text-flour fixed top-3 left-3 z-[100] rounded-full px-5 py-3 font-semibold"
         >
           Skip to content
         </a>
         <Preloader />
         <SiteNav />
-        <main id="main" tabIndex={-1} className="relative z-10 bg-flour outline-none md:mb-0">
+        <main id="main" tabIndex={-1} className="bg-flour relative z-10 outline-none md:mb-0">
           {children}
         </main>
         <SiteFooter />
         <div className="grain" aria-hidden />
         <MotionProvider />
+        <ViewTransitions />
         <Cursor />
-        <Analytics />
+        {/* Vercel Analytics only exists on Vercel deployments */}
+        {process.env.VERCEL ? <Analytics /> : null}
       </body>
     </html>
   );

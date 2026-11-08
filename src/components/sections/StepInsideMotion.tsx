@@ -31,8 +31,18 @@ export function StepInsideMotion({ children }: { children: ReactNode }) {
         .to(bulbs, { opacity: 1, duration: 0.12, stagger: 0.07, ease: "power2.in" }, 0.55)
         .to(scope.querySelector("[data-bloom]"), { opacity: 1, duration: 0.5, ease: "power1.in" }, 0.6)
         .call(() => section.classList.add("is-lit"), [], 1.1)
-        .fromTo(copy, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, stagger: 0.08, ease: "power3.out" }, 0.2)
-        .fromTo(cards, { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.4, stagger: 0.1, ease: "power3.out" }, 0.9);
+        .fromTo(
+          copy,
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 0.4, stagger: 0.08, ease: "power3.out" },
+          0.2,
+        )
+        .fromTo(
+          cards,
+          { opacity: 0, y: 50 },
+          { opacity: 1, y: 0, duration: 0.4, stagger: 0.1, ease: "power3.out" },
+          0.9,
+        );
       return tl;
     };
 
@@ -40,7 +50,14 @@ export function StepInsideMotion({ children }: { children: ReactNode }) {
     mm.add("(min-width: 768px)", () => {
       build(
         gsap.timeline({
-          scrollTrigger: { trigger: section, start: "top top", end: "+=180%", pin: true, scrub: 0.8, anticipatePin: 1 },
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: "+=180%",
+            pin: true,
+            scrub: 0.8,
+            anticipatePin: 1,
+          },
         }),
       );
     });

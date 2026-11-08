@@ -110,22 +110,37 @@ async function processAll() {
     const width = meta.autoOrient?.width ?? meta.width;
     const height = meta.autoOrient?.height ?? meta.height;
     const graded = await applyGrade(base(src), folder).toBuffer(); // one decode + grade, reused per size
-    const widths = output.widths.filter((w) => w < width).concat(width).filter((w, i, a) => a.indexOf(w) === i);
+    const widths = [...output.widths, ...(imageMeta[id].extraWidths ?? [])]
+      .filter((w) => w < width)
+      .concat(width)
+      .filter((w, i, a) => a.indexOf(w) === i)
+      .sort((a, b) => a - b);
     const outDir = path.join(OUT, folder);
     mkdirSync(outDir, { recursive: true });
 
-    const unchanged = prev[id]?.hash === hash && prev[id]?.gradeKey === gradeKey(folder) && !args.has("--force");
+    const unchanged =
+      prev[id]?.hash === hash &&
+      prev[id]?.gradeKey === gradeKey(folder) &&
+      prev[id]?.widths?.join() === widths.join() &&
+      !args.has("--force");
     if (!unchanged) {
       await Promise.all(
         widths.flatMap((w) => [
-          sharp(graded).resize({ width: w }).avif(output.avif).toFile(path.join(outDir, `${id}-${w}.avif`)),
-          sharp(graded).resize({ width: w }).webp(output.webp).toFile(path.join(outDir, `${id}-${w}.webp`)),
+          sharp(graded)
+            .resize({ width: w })
+            .avif(output.avif)
+            .toFile(path.join(outDir, `${id}-${w}.avif`)),
+          sharp(graded)
+            .resize({ width: w })
+            .webp(output.webp)
+            .toFile(path.join(outDir, `${id}-${w}.webp`)),
         ]),
       );
     }
     const lqip = await sharp(graded).resize({ width: 16 }).webp({ quality: 40 }).toBuffer();
     const { dominant } = await sharp(graded).stats();
-    const hex = "#" + [dominant.r, dominant.g, dominant.b].map((v) => v.toString(16).padStart(2, "0")).join("");
+    const hex =
+      "#" + [dominant.r, dominant.g, dominant.b].map((v) => v.toString(16).padStart(2, "0")).join("");
     const m = imageMeta[id];
     result[id] = {
       id,
@@ -155,5 +170,8 @@ function gradeKey(folder) {
   return JSON.stringify([grade.warmth, grade.shadowLift, grade.saturation, grade.brightness, output]);
 }
 
-if (args.has("--preview")) await preview();
-else await processAll();
+// Only run when executed directly (make-og-assets.mjs imports applyGrade from here).
+if (import.meta.url === `file://${process.argv[1]}`) {
+  if (args.has("--preview")) await preview();
+  else await processAll();
+}

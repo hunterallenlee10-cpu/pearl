@@ -15,7 +15,9 @@ type Setup = (ctx: {
  */
 export function useGsap(scope: RefObject<HTMLElement | null>, setup: Setup, deps: unknown[] = []) {
   const setupRef = useRef(setup);
-  setupRef.current = setup;
+  useEffect(() => {
+    setupRef.current = setup;
+  });
 
   useEffect(() => {
     let cancelled = false;

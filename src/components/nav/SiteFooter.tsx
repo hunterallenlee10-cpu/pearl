@@ -7,11 +7,11 @@ import { navLinks } from "./nav-links";
 /** Deep espresso footer, revealed like a curtain as the page lifts away (md+). */
 export function SiteFooter() {
   return (
-    <footer className="on-dark relative z-0 bg-espresso text-flour md:sticky md:bottom-0">
+    <footer className="on-dark bg-espresso text-flour relative z-0 md:sticky md:bottom-0">
       <div className="container-page grid gap-12 pt-20 pb-10 md:grid-cols-12 md:pt-24">
         <div className="md:col-span-5">
           <Logo tone="cream" className="h-24 w-auto md:h-28" title="Pearl Bakery" />
-          <p className="mt-8 max-w-sm font-display text-3xl leading-tight text-balance md:text-4xl">
+          <p className="font-display mt-8 max-w-sm text-3xl leading-tight text-balance md:text-4xl">
             Sold out? Follow on Facebook for next weekend&rsquo;s menu.
           </p>
           <a
@@ -39,7 +39,12 @@ export function SiteFooter() {
           <div>
             <h2 className="eyebrow text-wheat">Find us</h2>
             <address className="mt-3 not-italic">
-              <a href={maps.google} target="_blank" rel="noopener noreferrer" className="underline-offset-4 hover:underline">
+              <a
+                href={maps.google}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline-offset-4 hover:underline"
+              >
                 {business.address.street}
                 <br />
                 {business.address.city}, {business.address.region} {business.address.postalCode}
@@ -69,9 +74,10 @@ export function SiteFooter() {
         </div>
       </div>
 
-      <div className="container-page flex flex-col gap-3 border-t border-flour/12 py-6 text-sm text-flour/70 sm:flex-row sm:items-center sm:justify-between">
+      <div className="container-page border-flour/12 text-flour/70 flex flex-col gap-3 border-t py-6 text-sm sm:flex-row sm:items-center sm:justify-between">
         <p className="flex items-center gap-2">
-          <WheatSprig className="h-5 w-auto text-wheat" />© {new Date().getFullYear()} Pearl Bakery · Leonardtown, Maryland
+          <WheatSprig className="text-wheat h-5 w-auto" />© {new Date().getFullYear()} Pearl Bakery ·
+          Leonardtown, Maryland
         </p>
         <p>{/* [SITE CREDIT] */}Made with care in Southern Maryland.</p>
       </div>

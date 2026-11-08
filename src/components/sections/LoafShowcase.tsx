@@ -62,8 +62,11 @@ const CAST = [
 
 export function LoafShowcase() {
   return (
-    <section aria-labelledby="loaves-title" className="loaves relative bg-parchment">
-      <a href="#after-loaves" className="sr-only-focusable absolute top-4 left-4 z-20 rounded-full bg-crust px-4 py-2 text-flour">
+    <section aria-labelledby="loaves-title" className="loaves bg-parchment relative">
+      <a
+        href="#after-loaves"
+        className="sr-only-focusable bg-crust text-flour absolute top-4 left-4 z-20 rounded-full px-4 py-2"
+      >
         Skip the loaves
       </a>
       <LoafMotion count={LOAVES.length + 2}>
@@ -75,8 +78,10 @@ export function LoafShowcase() {
               <h2 id="loaves-title" className="display-lg mt-4 max-w-[12ch]">
                 Same board. <em className="italic">Different</em> loaf every weekend.
               </h2>
-              <p className="mt-6 max-w-md text-lg text-crust-soft">
-                Four of the regulars from the rotation. <span className="hidden md:inline">Keep scrolling, they spin.</span><span className="md:hidden">Swipe through, they spin. →</span>
+              <p className="text-crust-soft mt-6 max-w-md text-lg">
+                Four of the regulars from the rotation.{" "}
+                <span className="hidden md:inline">Keep scrolling, they spin.</span>
+                <span className="md:hidden">Swipe through, they spin. →</span>
               </p>
             </div>
           </div>
@@ -92,7 +97,7 @@ export function LoafShowcase() {
               <p
                 data-bigname
                 aria-hidden
-                className="outline-text pointer-events-none absolute top-1/2 left-1/2 z-0 w-max max-w-none -translate-y-1/2 font-display text-[clamp(5rem,15vw,15rem)] leading-[0.85] font-semibold whitespace-nowrap select-none"
+                className="outline-text font-display pointer-events-none absolute top-1/2 left-1/2 z-0 w-max max-w-none -translate-y-1/2 text-[clamp(5rem,15vw,15rem)] leading-[0.85] font-semibold whitespace-nowrap select-none"
                 style={{ translate: "-50% 0" }}
               >
                 {l.big}
@@ -100,10 +105,10 @@ export function LoafShowcase() {
 
               <div className="relative z-10 grid w-full max-w-7xl items-center gap-8 px-[var(--gutter)] md:grid-cols-[1fr_auto_1fr]">
                 <div className="order-2 md:order-1 md:self-end md:pb-10">
-                  <p className="font-display text-xl text-wheat-ink">
+                  <p className="font-display text-wheat-ink text-xl">
                     0{i + 1} <span className="text-crust/40">/ 0{LOAVES.length}</span>
                   </p>
-                  <h3 id={`loaf-${i}`} className="mt-2 font-display text-4xl leading-none md:text-5xl">
+                  <h3 id={`loaf-${i}`} className="font-display mt-2 text-4xl leading-none md:text-5xl">
                     {l.name}
                   </h3>
                 </div>
@@ -140,7 +145,9 @@ export function LoafShowcase() {
                   </span>
                 </div>
 
-                <p className="order-3 max-w-xs text-lg leading-snug md:justify-self-end md:self-start md:pt-10">{l.note}</p>
+                <p className="order-3 max-w-xs text-lg leading-snug md:self-start md:justify-self-end md:pt-10">
+                  {l.note}
+                </p>
               </div>
             </article>
           ))}
@@ -152,11 +159,17 @@ export function LoafShowcase() {
                 <div>
                   <p className="eyebrow text-wheat-ink">And a rotating cast</p>
                   <p className="display-md mt-4 max-w-3xl">
-                    Lemon poppy seed, fig &amp; walnut, white cheddar Old Bay, pumpkin spice, honey whole wheat…
+                    Lemon poppy seed, fig &amp; walnut, white cheddar Old Bay, pumpkin spice, honey whole
+                    wheat…
                   </p>
                 </div>
-                <div className="relative mx-auto hidden aspect-[4/5] w-full max-w-[22rem] rotate-3 overflow-hidden rounded-[var(--radius-card)] shadow-lift md:block">
-                  <Img id="HERO-pumpkin-spice-sourdough-loaves" fill sizes="22rem" className="h-full w-full" />
+                <div className="shadow-lift relative mx-auto hidden aspect-[4/5] w-full max-w-[22rem] rotate-3 overflow-hidden rounded-[var(--radius-card)] md:block">
+                  <Img
+                    id="HERO-pumpkin-spice-sourdough-loaves"
+                    fill
+                    sizes="22rem"
+                    className="h-full w-full"
+                  />
                   <span className="sticker absolute! right-4 bottom-4 -rotate-6!">
                     Pumpkin
                     <br />
@@ -164,8 +177,8 @@ export function LoafShowcase() {
                   </span>
                 </div>
               </div>
-              <div className="mt-12 overflow-hidden border-y border-crust/15 py-5" aria-hidden>
-                <div className="marquee-track flex w-max animate-marquee gap-10 font-display text-4xl whitespace-nowrap italic [--marquee-duration:50s] md:text-5xl">
+              <div className="border-crust/15 mt-12 overflow-hidden border-y py-5" aria-hidden>
+                <div className="marquee-track animate-marquee font-display flex w-max gap-10 text-4xl whitespace-nowrap italic [--marquee-duration:50s] md:text-5xl">
                   {[...CAST, ...CAST].map((c, i) => (
                     <span key={i} className="flex items-center gap-10">
                       {c} <span className="text-wheat not-italic">✦</span>

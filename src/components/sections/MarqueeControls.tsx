@@ -31,7 +31,7 @@ export function MarqueeControls({ children }: { children: ReactNode }) {
           data-marquee-toggle
           onClick={() => setPaused((p) => !p)}
           aria-pressed={paused}
-          className="inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-sm font-semibold ring-1 ring-crust/25 hover:bg-parchment"
+          className="ring-crust/25 hover:bg-parchment inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-sm font-semibold ring-1"
         >
           {paused ? (
             <svg aria-hidden viewBox="0 0 16 16" className="size-3.5" fill="currentColor">

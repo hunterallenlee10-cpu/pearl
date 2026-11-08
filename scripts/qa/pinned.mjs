@@ -3,7 +3,8 @@
 import { createRequire } from "node:module";
 const { chromium } = createRequire(import.meta.url)("playwright");
 const [sel, out, fr = "0,0.5,1", w = "1440"] = process.argv.slice(2);
-const width = Number(w), height = width < 600 ? 844 : 900;
+const width = Number(w),
+  height = width < 600 ? 844 : 900;
 const b = await chromium.launch();
 const p = await b.newPage({ viewport: { width, height } });
 await p.addInitScript(() => sessionStorage.setItem("pearl:proofed", "1"));

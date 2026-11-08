@@ -30,7 +30,10 @@ describe("sheet → board", () => {
     expect(board?.updated).toBe("2026-11-07");
   });
   it("marks sold-out items unavailable and is forgiving about case", () => {
-    const b = csvToBoard("Category,Item,Note,Available,Badge\nSOURDOUGH,Classic,,NO,\nbaked goods,Rolls,,yes,Best-seller\n", "2026-11-08");
+    const b = csvToBoard(
+      "Category,Item,Note,Available,Badge\nSOURDOUGH,Classic,,NO,\nbaked goods,Rolls,,yes,Best-seller\n",
+      "2026-11-08",
+    );
     expect(b?.items).toEqual([
       { group: "Sourdough", item: "Classic", note: undefined, badge: undefined, available: false },
       { group: "Baked goods", item: "Rolls", note: undefined, badge: "Best-seller", available: true },

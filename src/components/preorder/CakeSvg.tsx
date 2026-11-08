@@ -24,7 +24,10 @@ function smooth(pts: [number, number][]) {
   const n = pts.length;
   let d = `M${pts[0][0].toFixed(1)} ${pts[0][1].toFixed(1)}`;
   for (let i = 0; i < n; i++) {
-    const p0 = pts[(i - 1 + n) % n], p1 = pts[i], p2 = pts[(i + 1) % n], p3 = pts[(i + 2) % n];
+    const p0 = pts[(i - 1 + n) % n],
+      p1 = pts[i],
+      p2 = pts[(i + 1) % n],
+      p3 = pts[(i + 2) % n];
     const c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6];
     const c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
     d += `C${c1[0].toFixed(1)} ${c1[1].toFixed(1)} ${c2[0].toFixed(1)} ${c2[1].toFixed(1)} ${p2[0].toFixed(1)} ${p2[1].toFixed(1)}`;
@@ -54,7 +57,15 @@ function frostingPath(cx: number, y: number, rx: number) {
 }
 
 /** A stacked cinnamon-roll cake, three tiers, re-coloured live by the builder. */
-export function CakeSvg({ frosting, sprinkles, accent }: { frosting: string; sprinkles: Sprinkles; accent: string }) {
+export function CakeSvg({
+  frosting,
+  sprinkles,
+  accent,
+}: {
+  frosting: string;
+  sprinkles: Sprinkles;
+  accent: string;
+}) {
   // tiers from bottom to top: cx, top y of the roll, rx, height
   const tiers = [
     { y: 300, rx: 150, h: 70 },
@@ -88,7 +99,12 @@ export function CakeSvg({ frosting, sprinkles, accent }: { frosting: string; spr
   const frostLight = shade(frosting, 22);
 
   return (
-    <svg viewBox="0 0 400 420" className="h-auto w-full" role="img" aria-label="Preview of your cinnamon roll cake">
+    <svg
+      viewBox="0 0 400 420"
+      className="h-auto w-full"
+      role="img"
+      aria-label="Preview of your cinnamon roll cake"
+    >
       <defs>
         <linearGradient id="roll" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#E3A65E" />
@@ -102,7 +118,16 @@ export function CakeSvg({ frosting, sprinkles, accent }: { frosting: string; spr
       </defs>
       {/* plate */}
       <ellipse cx="200" cy="384" rx="186" ry="24" fill="#5B3A24" opacity=".12" />
-      <ellipse cx="200" cy="376" rx="178" ry="22" fill="#FBF6EE" stroke="#5B3A24" strokeOpacity=".25" strokeWidth="2" />
+      <ellipse
+        cx="200"
+        cy="376"
+        rx="178"
+        ry="22"
+        fill="#FBF6EE"
+        stroke="#5B3A24"
+        strokeOpacity=".25"
+        strokeWidth="2"
+      />
 
       {tiers.map((t, i) => (
         <g key={i}>
@@ -134,19 +159,57 @@ export function CakeSvg({ frosting, sprinkles, accent }: { frosting: string; spr
               strokeWidth="1.5"
               style={{ transition: "fill .4s, stroke .4s" }}
             />
-            <ellipse cx={200 - t.rx * 0.3} cy={t.y - t.rx * 0.12} rx={t.rx * 0.35} ry={t.rx * 0.06} fill={frostLight} opacity=".7" style={{ transition: "fill .4s" }} />
+            <ellipse
+              cx={200 - t.rx * 0.3}
+              cy={t.y - t.rx * 0.12}
+              rx={t.rx * 0.35}
+              ry={t.rx * 0.06}
+              fill={frostLight}
+              opacity=".7"
+              style={{ transition: "fill .4s" }}
+            />
           </g>
           {/* sprinkles */}
           <g key={sprinkles} className="cake-sprinkles">
             {dots[i].map((d, k) => {
               const style = { animationDelay: `${(k % 20) * 18 + i * 60}ms` };
               if (sprinkles === "rainbow")
-                return <rect key={k} x={d.x - 4} y={d.y - 1.5} width="8" height="3" rx="1.5" fill={RAINBOW[d.c]} transform={`rotate(${d.rot} ${d.x} ${d.y})`} style={style} />;
-              if (sprinkles === "nonpareils") return <circle key={k} cx={d.x} cy={d.y} r="1.9" fill={RAINBOW[d.c]} style={style} />;
+                return (
+                  <rect
+                    key={k}
+                    x={d.x - 4}
+                    y={d.y - 1.5}
+                    width="8"
+                    height="3"
+                    rx="1.5"
+                    fill={RAINBOW[d.c]}
+                    transform={`rotate(${d.rot} ${d.x} ${d.y})`}
+                    style={style}
+                  />
+                );
+              if (sprinkles === "nonpareils")
+                return <circle key={k} cx={d.x} cy={d.y} r="1.9" fill={RAINBOW[d.c]} style={style} />;
               if (sprinkles === "pearls")
-                return k % 2 ? <circle key={k} cx={d.x} cy={d.y} r={2.6 + d.s * 1.6} fill="url(#pearl-sheen)" stroke="#bfc8ce" strokeWidth=".5" style={style} /> : null;
+                return k % 2 ? (
+                  <circle
+                    key={k}
+                    cx={d.x}
+                    cy={d.y}
+                    r={2.6 + d.s * 1.6}
+                    fill="url(#pearl-sheen)"
+                    stroke="#bfc8ce"
+                    strokeWidth=".5"
+                    style={style}
+                  />
+                ) : null;
               return k % 2 ? (
-                <path key={k} d="M0 -5 L1.5 -1.5 5 -1.5 2.2 .8 3.2 4.5 0 2.3 -3.2 4.5 -2.2 .8 -5 -1.5 -1.5 -1.5Z" fill={accent} transform={`translate(${d.x} ${d.y}) rotate(${d.rot})`} style={style} />
+                <path
+                  key={k}
+                  d="M0 -5 L1.5 -1.5 5 -1.5 2.2 .8 3.2 4.5 0 2.3 -3.2 4.5 -2.2 .8 -5 -1.5 -1.5 -1.5Z"
+                  fill={accent}
+                  transform={`translate(${d.x} ${d.y}) rotate(${d.rot})`}
+                  style={style}
+                />
               ) : null;
             })}
           </g>

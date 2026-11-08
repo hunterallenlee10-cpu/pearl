@@ -14,6 +14,8 @@ export type ImageMeta = {
   alt: string;
   position?: string;
   era?: "past" | "present";
+  /** Extra output widths for this photo (e.g. an 828px size for the mobile hero). */
+  extraWidths?: number[];
 };
 
 export const imageMeta: Record<string, ImageMeta> = {
@@ -22,7 +24,7 @@ export const imageMeta: Record<string, ImageMeta> = {
     alt: "Pearl Bakery's Thanksgiving 2026 pre-order menu with a brown gingham border and lace edge, listing sourdough, specialty cakes, desserts and cookies with prices, and a QR code to order",
   },
   "we-moved-announcement-40960-medleys-neck": {
-    alt: "\"We moved!\" announcement over a photo of the new white farmstand shed with mums by the door, captioned 40960 Medley's Neck Rd.",
+    alt: '"We moved!" announcement over a photo of the new white farmstand shed with mums by the door, captioned 40960 Medley\'s Neck Rd.',
     position: "50% 60%",
   },
   "opening-day-march-15-2025": {
@@ -33,14 +35,15 @@ export const imageMeta: Record<string, ImageMeta> = {
     alt: "Christmas 2025 pre-order menu decorated with holly and pine, listing sourdough loaves, cinnamon rolls, a Christmas Morning Brunch Box and cookie boxes",
   },
   "christmas-in-july-flyer": {
-    alt: "\"Christmas in July!\" flyer featuring gingerbread blondies, peppermint mocha cookies and Christmas tree cake sugar cookies",
+    alt: '"Christmas in July!" flyer featuring gingerbread blondies, peppermint mocha cookies and Christmas tree cake sugar cookies',
   },
   "closed-next-weekend-chalkboard": {
-    alt: "Chalkboard sign reading \"Closed next weekend 5/9 – 5/10. Have a happy Mother's Day!\"",
+    alt: 'Chalkboard sign reading "Closed next weekend 5/9 – 5/10. Have a happy Mother\'s Day!"',
   },
 
   // ── Bread & savory ──────────────────────────────────────────────────────
   "HERO-golden-boules-pile": {
+    extraWidths: [828],
     alt: "A pile of golden sourdough boules fresh from the oven, the front loaf split open along a deep score",
     position: "40% 62%",
   },
@@ -175,7 +178,7 @@ export const imageMeta: Record<string, ImageMeta> = {
     position: "50% 65%",
   },
   "butter-pecan-sticky-buns-chalk-price": {
-    alt: "Butter pecan sticky buns in a woven basket with a little chalkboard sign reading \"Butter Pecan Sticky Buns $12\"",
+    alt: 'Butter pecan sticky buns in a woven basket with a little chalkboard sign reading "Butter Pecan Sticky Buns $12"',
     position: "50% 70%",
   },
   "cosmic-brownie-in-hand": {

@@ -29,7 +29,7 @@ export function MapEmbedToggle({ children }: { children: ReactNode }) {
         <iframe
           title="Google Map of 40960 Medley's Neck Rd, Leonardtown, MD"
           src={maps.embed}
-          className="aspect-[1.1] w-full rounded-[var(--radius-card)] shadow-lift"
+          className="shadow-lift aspect-[1.1] w-full rounded-[var(--radius-card)]"
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
         />
@@ -43,7 +43,7 @@ export function MapEmbedToggle({ children }: { children: ReactNode }) {
         <button
           type="button"
           onClick={() => setLive((v) => !v)}
-          className="min-h-11 rounded-full px-4 font-semibold underline decoration-wheat decoration-2 underline-offset-4 hover:decoration-crust"
+          className="decoration-wheat hover:decoration-crust min-h-11 rounded-full px-4 font-semibold underline decoration-2 underline-offset-4"
         >
           {live ? "Show the drawn map" : "Load interactive map"}
         </button>

@@ -85,7 +85,7 @@ function Sticker({ name }: { name: string }) {
     <span className="peel absolute top-2.5 left-2.5 grid size-[4.75rem] place-items-center rounded-full text-center md:top-4 md:left-4 md:size-28">
       <span className="peel-face grid size-full place-items-center rounded-full px-2">
         <span>
-          <span className="block font-display text-[0.8rem] leading-none italic md:text-sm">Pearl</span>
+          <span className="font-display block text-[0.8rem] leading-none italic md:text-sm">Pearl</span>
           <span className="mt-0.5 block text-[0.6rem] leading-tight font-semibold tracking-wide uppercase md:mt-1 md:text-[0.72rem]">
             {name}
           </span>
@@ -97,7 +97,7 @@ function Sticker({ name }: { name: string }) {
 
 export function SweetBento() {
   return (
-    <section aria-labelledby="sweet-title" className="relative bg-flour pt-10 pb-28 md:pb-36">
+    <section aria-labelledby="sweet-title" className="bg-flour relative pt-10 pb-28 md:pb-36">
       <div className="container-page">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
@@ -108,11 +108,7 @@ export function SweetBento() {
               Cinnamon rolls, cookies &amp; <em className="italic">things you&rsquo;ll go back for.</em>
             </h2>
           </div>
-          <Link
-            href="/menu"
-            className="btn btn-secondary"
-            data-reveal
-          >
+          <Link href="/menu" className="btn btn-secondary" data-reveal>
             The full rotating menu <span aria-hidden>→</span>
           </Link>
         </div>
@@ -121,14 +117,22 @@ export function SweetBento() {
           {CELLS.map((c, i) =>
             "callout" in c ? (
               c.callout === "best" ? (
-                <li key="best" className={`kraft flex flex-col justify-between rounded-[var(--radius-card)] p-5 md:p-8 ${c.span}`} data-reveal>
+                <li
+                  key="best"
+                  className={`kraft flex flex-col justify-between rounded-[var(--radius-card)] p-5 md:p-8 ${c.span}`}
+                  data-reveal
+                >
                   <p className="eyebrow text-wheat-ink">The best-seller</p>
                   <p className="font-display text-[1.6rem] leading-[1.05] md:text-[2.1rem]">
                     Cinnamon rolls, <em className="italic">nearly every weekend.</em>
                   </p>
                 </li>
               ) : (
-                <li key="fall" className={`flex flex-col justify-between rounded-[var(--radius-card)] bg-espresso p-5 text-flour md:p-8 ${c.span}`} data-reveal>
+                <li
+                  key="fall"
+                  className={`bg-espresso text-flour flex flex-col justify-between rounded-[var(--radius-card)] p-5 md:p-8 ${c.span}`}
+                  data-reveal
+                >
                   <p className="eyebrow text-wheat">Fall staple</p>
                   <p className="font-display text-[1.35rem] leading-[1.05] md:text-[2.1rem]">
                     Apple cider donuts. <em className="italic">They sell out.</em>
@@ -180,10 +184,14 @@ export function SweetBento() {
 
 function BentoTile({ t, i }: { t: Tile; i: number }) {
   return (
-    <li className={t.span} data-reveal style={{ "--reveal-delay": `${(i % 4) * 0.06}s` } as React.CSSProperties}>
+    <li
+      className={t.span}
+      data-reveal
+      style={{ "--reveal-delay": `${(i % 4) * 0.06}s` } as React.CSSProperties}
+    >
       <Link
         href={t.href}
-        className="bento-tile group relative block h-full overflow-hidden rounded-[var(--radius-card)] bg-parchment shadow-soft"
+        className="bento-tile group bg-parchment shadow-soft relative block h-full overflow-hidden rounded-[var(--radius-card)]"
         data-cursor="view"
       >
         <Img id={t.id} fill sizes={t.sizes} className="h-full w-full" position={t.position} />

@@ -191,11 +191,11 @@
   opacity: 0.045;
   mix-blend-mode: multiply;
   background-image: url("/textures/grain.png");
-  background-size: 160px 160px;
+  background-size: 96px 96px;
 }
 
 /* ── Reveal helpers (JS sets data-revealed; without JS everything is visible) ── */
-html.js [data-reveal]:not([data-revealed]) {
+html.reveal-ready [data-reveal]:not([data-revealed]) {
   opacity: 0;
   transform: translateY(24px);
   filter: blur(6px);
@@ -297,7 +297,7 @@ html.js [data-reveal]:not([data-revealed]) {
   [data-reveal] {
     transition: opacity 0.4s linear !important;
   }
-  html.js [data-reveal]:not([data-revealed]) {
+  html.reveal-ready [data-reveal]:not([data-revealed]) {
     transform: none;
     filter: none;
   }

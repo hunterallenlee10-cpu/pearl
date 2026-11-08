@@ -5,7 +5,13 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
  * Category chips for the rotating menu. Without JS every category simply shows; with JS the
  * chips filter, and a #hash (e.g. /menu#cookies) preselects a category.
  */
-export function MenuFilter({ categories, children }: { categories: { id: string; label: string }[]; children: ReactNode }) {
+export function MenuFilter({
+  categories,
+  children,
+}: {
+  categories: { id: string; label: string }[];
+  children: ReactNode;
+}) {
   const [active, setActive] = useState<string>("all");
   const wrap = useRef<HTMLDivElement>(null);
 
@@ -36,7 +42,7 @@ export function MenuFilter({ categories, children }: { categories: { id: string;
       <div
         role="group"
         aria-label="Filter the menu"
-        className="sticky top-[calc(var(--nav-h)+0.5rem)] z-20 -mx-[var(--gutter)] mt-10 flex gap-2 overflow-x-auto px-[var(--gutter)] py-3 [scrollbar-width:none]"
+        className="sticky top-[calc(var(--nav-h)+0.5rem)] z-20 -mx-[var(--gutter)] mt-10 flex [scrollbar-width:none] gap-2 overflow-x-auto px-[var(--gutter)] py-3"
       >
         {chips.map((c) => (
           <button
@@ -44,7 +50,7 @@ export function MenuFilter({ categories, children }: { categories: { id: string;
             type="button"
             aria-pressed={active === c.id}
             onClick={() => choose(c.id)}
-            className="min-h-11 shrink-0 rounded-full bg-flour/90 px-4 font-semibold ring-1 ring-crust/20 backdrop-blur transition-colors aria-pressed:bg-crust aria-pressed:text-flour aria-pressed:ring-crust"
+            className="bg-flour/90 ring-crust/20 aria-pressed:bg-crust aria-pressed:text-flour aria-pressed:ring-crust min-h-11 shrink-0 rounded-full px-4 font-semibold ring-1 backdrop-blur transition-colors"
           >
             {c.label}
           </button>

@@ -15,21 +15,39 @@ export async function ChalkboardWeekend({ headingLevel = 2 }: { headingLevel?: 1
   let n = 0;
 
   return (
-    <section aria-labelledby="weekend-title" className="relative overflow-hidden bg-flour py-24 md:py-32">
+    <section aria-labelledby="weekend-title" className="bg-flour relative overflow-hidden py-24 md:py-32">
       <div className="container-page">
         <ChalkReveal>
-          <div className="board relative mx-auto max-w-6xl rounded-[18px] p-3 shadow-lift md:p-5">
-            <div className="chalk relative overflow-hidden rounded-[10px] px-6 pt-10 pb-12 text-chalk md:px-14 md:pt-14 md:pb-16">
+          <div className="board shadow-lift relative mx-auto max-w-6xl rounded-[18px] p-3 md:p-5">
+            <div className="chalk text-chalk relative overflow-hidden rounded-[10px] px-6 pt-10 pb-12 md:px-14 md:pt-14 md:pb-16">
               <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-3">
-                <H id="weekend-title" className="chalk-line font-hand text-[clamp(2.75rem,6vw,5rem)] leading-[0.95] font-bold">
+                <H
+                  id="weekend-title"
+                  className="chalk-line font-hand text-[clamp(2.75rem,6vw,5rem)] leading-[0.95] font-bold"
+                >
                   This Weekend at the Stand
                 </H>
-                <p className="chalk-line font-hand text-2xl text-chalk/80" style={{ "--n": 1 } as React.CSSProperties}>
+                <p
+                  className="chalk-line font-hand text-chalk/80 text-2xl"
+                  style={{ "--n": 1 } as React.CSSProperties}
+                >
                   Updated {formatUpdated(board.updated)}
                 </p>
               </div>
-              <svg aria-hidden viewBox="0 0 600 14" preserveAspectRatio="none" className="chalk-doodle mt-3 h-3 w-full max-w-xl text-chalk/70">
-                <path d="M2 9c90-6 220-8 380-4s160 3 216-1" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" pathLength={1} />
+              <svg
+                aria-hidden
+                viewBox="0 0 600 14"
+                preserveAspectRatio="none"
+                className="chalk-doodle text-chalk/70 mt-3 h-3 w-full max-w-xl"
+              >
+                <path
+                  d="M2 9c90-6 220-8 380-4s160 3 216-1"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  pathLength={1}
+                />
               </svg>
 
               <div className="mt-10 grid gap-10 md:grid-cols-3 md:gap-12">
@@ -39,11 +57,13 @@ export async function ChalkboardWeekend({ headingLevel = 2 }: { headingLevel?: 1
                   return (
                     <div key={g.id}>
                       <h3
-                        className="chalk-line font-hand text-[2rem] leading-none font-bold text-wheat"
+                        className="chalk-line font-hand text-wheat text-[2rem] leading-none font-bold"
                         style={{ "--n": ++n } as React.CSSProperties}
                       >
                         {g.label}
-                        {g.id === "Also at the stand" && <span className="font-medium text-chalk/70"> (eggs, honey)</span>}
+                        {g.id === "Also at the stand" && (
+                          <span className="text-chalk/70 font-medium"> (eggs, honey)</span>
+                        )}
                       </h3>
                       <ul className="mt-4 space-y-2.5">
                         {items.map((it) => (
@@ -52,14 +72,16 @@ export async function ChalkboardWeekend({ headingLevel = 2 }: { headingLevel?: 1
                             className="chalk-line font-hand text-[1.7rem] leading-tight"
                             style={{ "--n": ++n } as React.CSSProperties}
                           >
-                            <span className={it.available ? "" : "text-chalk/50 line-through decoration-2"}>{it.item}</span>
-                            {!it.available && <span className="ml-2 text-xl text-wheat">sold out!</span>}
+                            <span className={it.available ? "" : "text-chalk/50 line-through decoration-2"}>
+                              {it.item}
+                            </span>
+                            {!it.available && <span className="text-wheat ml-2 text-xl">sold out!</span>}
                             {it.badge && it.available && (
-                              <span className="ml-2 inline-block -rotate-3 rounded-full border-2 border-chalk/60 px-2 text-lg leading-snug text-chalk/90">
+                              <span className="border-chalk/60 text-chalk/90 ml-2 inline-block -rotate-3 rounded-full border-2 px-2 text-lg leading-snug">
                                 {it.badge}
                               </span>
                             )}
-                            {it.note && <span className="block text-xl text-chalk/70">{it.note}</span>}
+                            {it.note && <span className="text-chalk/70 block text-xl">{it.note}</span>}
                           </li>
                         ))}
                       </ul>
@@ -69,13 +91,33 @@ export async function ChalkboardWeekend({ headingLevel = 2 }: { headingLevel?: 1
               </div>
 
               {/* doodles */}
-              <svg aria-hidden viewBox="0 0 120 80" className="chalk-doodle absolute right-8 bottom-8 hidden w-28 text-chalk/60 md:block">
-                <g fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path pathLength={1} d="M8 58c-4-22 14-44 52-46 38-2 56 18 52 42-2 12-18 18-52 18S10 70 8 58z" />
-                  <path pathLength={1} d="M34 30c10 6 18 16 22 30M58 24c10 8 16 20 18 34M82 28c6 8 10 18 10 28" />
+              <svg
+                aria-hidden
+                viewBox="0 0 120 80"
+                className="chalk-doodle text-chalk/60 absolute right-8 bottom-8 hidden w-28 md:block"
+              >
+                <g
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path
+                    pathLength={1}
+                    d="M8 58c-4-22 14-44 52-46 38-2 56 18 52 42-2 12-18 18-52 18S10 70 8 58z"
+                  />
+                  <path
+                    pathLength={1}
+                    d="M34 30c10 6 18 16 22 30M58 24c10 8 16 20 18 34M82 28c6 8 10 18 10 28"
+                  />
                 </g>
               </svg>
-              <svg aria-hidden viewBox="0 0 100 100" className="chalk-doodle absolute top-1/2 right-12 hidden w-16 text-wheat/70 lg:block">
+              <svg
+                aria-hidden
+                viewBox="0 0 100 100"
+                className="chalk-doodle text-wheat/70 absolute top-1/2 right-12 hidden w-16 lg:block"
+              >
                 <path
                   pathLength={1}
                   fill="none"
@@ -95,7 +137,7 @@ export async function ChalkboardWeekend({ headingLevel = 2 }: { headingLevel?: 1
             href={business.facebook}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-semibold text-crust underline decoration-wheat decoration-2 underline-offset-4 hover:decoration-crust"
+            className="text-crust decoration-wheat hover:decoration-crust font-semibold underline decoration-2 underline-offset-4"
           >
             Follow along on Facebook <span aria-hidden>→</span>
           </a>

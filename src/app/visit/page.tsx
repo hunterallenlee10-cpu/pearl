@@ -13,13 +13,22 @@ export const metadata = pageMeta({
 });
 
 // Present-day photos only: getPresentImage throws if a trailer photo sneaks in here.
-const PHOTOS = ["HERO-shed-exterior-fall-field", "shed-doorway-view", "HERO-shed-interior-barrels", "shed-exterior-blue-sky"];
+const PHOTOS = [
+  "HERO-shed-exterior-fall-field",
+  "shed-doorway-view",
+  "HERO-shed-interior-barrels",
+  "shed-exterior-blue-sky",
+];
 
 export default function VisitPage() {
   const faqLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
   };
   return (
     <>
@@ -31,8 +40,16 @@ export default function VisitPage() {
         <div className="container-page">
           <ul className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
             {PHOTOS.map((id, i) => (
-              <li key={id} className={`relative overflow-hidden rounded-[var(--radius-card)] shadow-soft ${i % 2 ? "aspect-[3/4] md:translate-y-8" : "aspect-[3/4]"}`}>
-                <Img id={getPresentImage(id)} fill sizes="(min-width: 768px) 24vw, 46vw" className="h-full w-full" />
+              <li
+                key={id}
+                className={`shadow-soft relative overflow-hidden rounded-[var(--radius-card)] ${i % 2 ? "aspect-[3/4] md:translate-y-8" : "aspect-[3/4]"}`}
+              >
+                <Img
+                  id={getPresentImage(id)}
+                  fill
+                  sizes="(min-width: 768px) 24vw, 46vw"
+                  className="h-full w-full"
+                />
               </li>
             ))}
           </ul>
@@ -46,13 +63,16 @@ export default function VisitPage() {
             <h2 id="faq-title" className="display-md mt-4">
               Questions, <em className="italic">answered.</em>
             </h2>
-            <p className="mt-5 text-crust-soft">
+            <p className="text-crust-soft mt-5">
               Something else? Call or text{" "}
-              <a href={business.phoneHref} className="font-semibold text-crust underline">
+              <a href={business.phoneHref} className="text-crust font-semibold underline">
                 {business.phone}
               </a>{" "}
               or email{" "}
-              <a href={`mailto:${business.email}`} className="font-semibold text-crust underline [overflow-wrap:anywhere]">
+              <a
+                href={`mailto:${business.email}`}
+                className="text-crust font-semibold [overflow-wrap:anywhere] underline"
+              >
                 {business.email}
               </a>
               .
@@ -60,14 +80,17 @@ export default function VisitPage() {
           </div>
           <div className="lg:col-span-8">
             {faqs.map((f) => (
-              <details key={f.q} className="faq group border-b border-crust/15 py-2">
-                <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-6 font-display text-2xl [&::-webkit-details-marker]:hidden">
+              <details key={f.q} className="faq group border-crust/15 border-b py-2">
+                <summary className="font-display flex min-h-14 cursor-pointer list-none items-center justify-between gap-6 text-2xl [&::-webkit-details-marker]:hidden">
                   {f.q}
-                  <span aria-hidden className="grid size-9 shrink-0 place-items-center rounded-full ring-1 ring-crust/25 transition-transform duration-500 ease-(--ease-dough) group-open:rotate-45">
+                  <span
+                    aria-hidden
+                    className="ring-crust/25 grid size-9 shrink-0 place-items-center rounded-full ring-1 transition-transform duration-500 ease-(--ease-dough) group-open:rotate-45"
+                  >
                     +
                   </span>
                 </summary>
-                <p className="max-w-2xl pt-1 pb-5 text-lg text-crust-soft">{f.a}</p>
+                <p className="text-crust-soft max-w-2xl pt-1 pb-5 text-lg">{f.a}</p>
               </details>
             ))}
           </div>

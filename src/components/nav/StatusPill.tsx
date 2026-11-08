@@ -7,7 +7,13 @@ import { getStatus, STATUS_FALLBACK, type Status } from "@/lib/status";
  * Live open/closed status. Rendered on the client so cached pages never show a stale time;
  * the server renders a fallback that is always true.
  */
-export function StatusPill({ tone = "light", className = "" }: { tone?: "light" | "dark" | "glass"; className?: string }) {
+export function StatusPill({
+  tone = "light",
+  className = "",
+}: {
+  tone?: "light" | "dark" | "glass";
+  className?: string;
+}) {
   const [status, setStatus] = useState<Status | null>(null);
 
   useEffect(() => {
@@ -44,7 +50,11 @@ export function StatusPill({ tone = "light", className = "" }: { tone?: "light" 
       <span
         aria-hidden
         className={`size-2 shrink-0 rounded-full ${
-          open ? "animate-pulse-dot bg-wheat" : status?.kind === "override" ? "bg-[#b4553a]" : "bg-current opacity-45"
+          open
+            ? "animate-pulse-dot bg-wheat"
+            : status?.kind === "override"
+              ? "bg-[#b4553a]"
+              : "bg-current opacity-45"
         }`}
       />
       <span aria-live="polite" aria-atomic="true">

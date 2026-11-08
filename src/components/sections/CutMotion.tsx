@@ -15,7 +15,12 @@ export function CutMotion({ children }: { children: ReactNode }) {
     const build = (tl: gsap.core.Timeline) =>
       tl
         .fromTo(score, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.35, ease: "power2.inOut" })
-        .fromTo(inside, { scale: 1.15, filter: "brightness(.6)" }, { scale: 1, filter: "brightness(1)", duration: 0.65, ease: "power2.out" }, 0.3)
+        .fromTo(
+          inside,
+          { scale: 1.15, filter: "brightness(.6)" },
+          { scale: 1, filter: "brightness(1)", duration: 0.65, ease: "power2.out" },
+          0.3,
+        )
         .to(l, { xPercent: -62, rotate: -4, duration: 0.65, ease: "power3.inOut" }, 0.3)
         .to(r, { xPercent: 62, rotate: 4, duration: 0.65, ease: "power3.inOut" }, 0.3)
         .to(score, { opacity: 0, duration: 0.15 }, 0.38)
@@ -25,7 +30,14 @@ export function CutMotion({ children }: { children: ReactNode }) {
     mm.add("(min-width: 768px)", () => {
       build(
         gsap.timeline({
-          scrollTrigger: { trigger: scope, start: "top top", end: "+=110%", pin: true, scrub: 0.8, anticipatePin: 1 },
+          scrollTrigger: {
+            trigger: scope,
+            start: "top top",
+            end: "+=110%",
+            pin: true,
+            scrub: 0.8,
+            anticipatePin: 1,
+          },
         }),
       );
     });
@@ -34,7 +46,12 @@ export function CutMotion({ children }: { children: ReactNode }) {
       build(tl);
       tl.duration(1.8);
       gsap.timeline({
-        scrollTrigger: { trigger: scope.querySelector("[data-stage]"), start: "top 65%", once: true, onEnter: () => tl.play() },
+        scrollTrigger: {
+          trigger: scope.querySelector("[data-stage]"),
+          start: "top 65%",
+          once: true,
+          onEnter: () => tl.play(),
+        },
       });
     });
     return () => mm.revert();

@@ -34,7 +34,12 @@ export function SiteNav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => setOpen(false), [pathname]);
+  // close the mobile menu when the route changes
+  const [lastPath, setLastPath] = useState(pathname);
+  if (lastPath !== pathname) {
+    setLastPath(pathname);
+    setOpen(false);
+  }
 
   const overHero = pathname === "/" && atTop;
   const solid = !overHero;

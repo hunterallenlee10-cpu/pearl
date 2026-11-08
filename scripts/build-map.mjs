@@ -98,4 +98,6 @@ export const mapPoints = {
 } as const;
 `;
 writeFileSync("src/components/visit/map-data.ts", out);
-console.log(`map ${W}x${H}; water ${waterRings.length} rings, major ${major.length}, local ${localLines.length}, medleys ${medleys.length}; ${out.length} bytes`);
+console.log(
+  `map ${W}x${H}; water ${waterRings.length} rings, major ${major.length}, local ${localLines.length}, medleys ${medleys.length}; ${out.length} bytes`,
+);

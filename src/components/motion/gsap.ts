@@ -26,18 +26,32 @@ function hookLenis({ gsap, ScrollTrigger }: { gsap: Gsap; ScrollTrigger: ScrollT
   lenisRef.on("scroll", ScrollTrigger.update);
 }
 
+/** Resolves when the browser has a quiet moment (or after `timeout` ms), so motion setup never
+ * competes with the first paint and hydration. */
+export function whenIdle(timeout = 1500) {
+  return new Promise<void>((resolve) => {
+    const w = window as Window & {
+      requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number;
+    };
+    if (w.requestIdleCallback) w.requestIdleCallback(() => resolve(), { timeout });
+    else setTimeout(resolve, 200);
+  });
+}
+
 export function loadGsap() {
   if (!loading) {
-    loading = Promise.all([import("gsap"), import("gsap/ScrollTrigger")]).then(([g, s]) => {
-      const gsap = g.gsap;
-      const ScrollTrigger = s.ScrollTrigger;
-      gsap.registerPlugin(ScrollTrigger);
-      gsap.defaults({ ease: "expo.out", duration: 0.9 });
-      ScrollTrigger.config({ ignoreMobileResize: true });
-      const mods = { gsap, ScrollTrigger };
-      hookLenis(mods);
-      return mods;
-    });
+    loading = whenIdle()
+      .then(() => Promise.all([import("gsap"), import("gsap/ScrollTrigger")]))
+      .then(([g, s]) => {
+        const gsap = g.gsap;
+        const ScrollTrigger = s.ScrollTrigger;
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.defaults({ ease: "expo.out", duration: 0.9 });
+        ScrollTrigger.config({ ignoreMobileResize: true });
+        const mods = { gsap, ScrollTrigger };
+        hookLenis(mods);
+        return mods;
+      });
   }
   return loading;
 }

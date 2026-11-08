@@ -5,7 +5,9 @@ import type { SVGProps } from "react";
 type P = SVGProps<SVGSVGElement> & { title?: string };
 
 const base = (title?: string) =>
-  title ? { role: "img" as const, "aria-label": title } : { "aria-hidden": true as const, focusable: false as const };
+  title
+    ? { role: "img" as const, "aria-label": title }
+    : { "aria-hidden": true as const, focusable: false as const };
 
 const stroke = {
   fill: "none",
@@ -79,7 +81,10 @@ export function QrDoodle({ title, ...p }: P) {
     <svg viewBox="0 0 64 64" {...base(title)} {...p}>
       <path {...stroke} d="M6 6h18v18H6zM40 6h18v18H40zM6 40h18v18H6z" />
       <path {...stroke} d="M12 12h6v6h-6zM46 12h6v6h-6zM12 46h6v6h-6z" />
-      <path {...stroke} d="M40 40h6v6M52 40h6M40 52h6v6M52 52v6h6M30 6v8M30 20v6M6 30h8M20 30h10v10M46 30h12" />
+      <path
+        {...stroke}
+        d="M40 40h6v6M52 40h6M40 52h6v6M52 52v6h6M30 6v8M30 20v6M6 30h8M20 30h10v10M46 30h12"
+      />
     </svg>
   );
 }

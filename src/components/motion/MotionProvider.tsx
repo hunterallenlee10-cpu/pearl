@@ -37,9 +37,17 @@ export function MotionProvider() {
     };
   }, []);
 
-  // Reveal-once observer (re-scans on navigation)
+  // Reveal-once observer (re-scans on navigation). Content is never hidden before this runs:
+  // anything already on screen is marked revealed first, and only then does the
+  // html.reveal-ready class hide what's below the fold, ready to animate in.
   useEffect(() => {
     const els = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]:not([data-revealed])"));
+    const vh = window.innerHeight;
+    for (const el of els) {
+      const r = el.getBoundingClientRect();
+      if (r.top < vh && r.bottom > 0) el.setAttribute("data-revealed", "");
+    }
+    document.documentElement.classList.add("reveal-ready");
     if (!("IntersectionObserver" in window)) {
       els.forEach((el) => el.setAttribute("data-revealed", ""));
       return;

@@ -12,7 +12,14 @@ await p.goto(process.argv[6] || "http://localhost:3000/", { waitUntil: "networki
 const el = p.locator(sel).first();
 await el.scrollIntoViewIfNeeded();
 // reveal everything in the section
-await p.evaluate((s) => document.querySelector(s)?.querySelectorAll("[data-reveal]").forEach((e) => e.setAttribute("data-revealed", "")), sel);
+await p.evaluate(
+  (s) =>
+    document
+      .querySelector(s)
+      ?.querySelectorAll("[data-reveal]")
+      .forEach((e) => e.setAttribute("data-revealed", "")),
+  sel,
+);
 await p.waitForTimeout(1600);
 await el.screenshot({ path: out });
 await b.close();

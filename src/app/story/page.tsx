@@ -29,10 +29,15 @@ export default function StoryPage() {
       <section aria-labelledby="baker-title" className="bg-flour pb-24 md:pb-32">
         <div className="container-page grid items-center gap-12 md:grid-cols-12">
           <div className="relative md:col-span-6">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-[var(--radius-card)] shadow-lift">
-              <Img id="HERO-baker-with-bread-at-farmstand" fill sizes="(min-width: 768px) 50vw, 92vw" className="h-full w-full" />
+            <div className="shadow-lift relative aspect-[4/3] overflow-hidden rounded-[var(--radius-card)]">
+              <Img
+                id="HERO-baker-with-bread-at-farmstand"
+                fill
+                sizes="(min-width: 768px) 50vw, 92vw"
+                className="h-full w-full"
+              />
             </div>
-            <p className="mt-3 font-hand text-xl text-crust-soft">At the original trailer, 2025.</p>
+            <p className="font-hand text-crust-soft mt-3 text-xl">At the original trailer, 2025.</p>
           </div>
           <div className="md:col-span-5 md:col-start-8">
             <h2 id="baker-title" className="display-md">
@@ -41,12 +46,13 @@ export default function StoryPage() {
             {/* [BAKER FIRST NAME — confirm] before adding a name here */}
             <div className="mt-6 space-y-4 text-lg">
               <p>
-                Everything at the stand is baked by one person, who also stocks the shelves, writes the chalkboard, posts
-                the menu every week and answers the messages.
+                Everything at the stand is baked by one person, who also stocks the shelves, writes the
+                chalkboard, posts the menu every week and answers the messages.
               </p>
               <p>
-                The menu changes with the seasons and with whatever&rsquo;s being tested in the kitchen that week:
-                &ldquo;feeling soo close to finding the recipe for the perfect chocolate chip cookie.&rdquo;
+                The menu changes with the seasons and with whatever&rsquo;s being tested in the kitchen that
+                week: &ldquo;feeling soo close to finding the recipe for the perfect chocolate chip
+                cookie.&rdquo;
               </p>
               <p>
                 A year after opening day she wrote:{" "}
@@ -66,15 +72,17 @@ export default function StoryPage() {
           <h2 id="seasons-title" className="display-md max-w-xl">
             Something for every <em className="italic">season.</em>
           </h2>
-          <p className="mt-4 max-w-xl text-lg text-crust-soft">A few of the specials that have come around so far.</p>
+          <p className="text-crust-soft mt-4 max-w-xl text-lg">
+            A few of the specials that have come around so far.
+          </p>
           <ul className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-5">
             {pastSpecials.map((p) => (
               <li key={p.title}>
-                <div className="relative aspect-[3/4] overflow-hidden rounded-[var(--radius-card)] shadow-soft">
+                <div className="shadow-soft relative aspect-[3/4] overflow-hidden rounded-[var(--radius-card)]">
                   <Img id={p.image} fill sizes="(min-width: 768px) 19vw, 46vw" className="h-full w-full" />
                 </div>
                 <p className="mt-3 font-semibold">{p.title}</p>
-                <p className="text-sm text-crust-soft">{p.detail}</p>
+                <p className="text-crust-soft text-sm">{p.detail}</p>
               </li>
             ))}
           </ul>

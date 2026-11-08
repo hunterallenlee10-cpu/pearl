@@ -5,7 +5,8 @@
 // Prices: only the Butter Pecan Sticky Buns ($12, from the chalkboard at the stand) are shown.
 // Every other item has `price: "[PRICE]"`, which the UI never displays.
 
-export type MenuCategoryId = "sourdough" | "bagels-pretzels" | "rolls-buns" | "cookies" | "scones-cakes" | "farm";
+export type MenuCategoryId =
+  "sourdough" | "bagels-pretzels" | "rolls-buns" | "cookies" | "scones-cakes" | "farm";
 
 export const menuCategories: { id: MenuCategoryId; label: string; blurb: string; image: string }[] = [
   {
@@ -77,7 +78,7 @@ export const menu: MenuItem[] = [
   {
     name: "White Cheddar Old Bay",
     category: "sourdough",
-    note: "A \"Maryland Summer\" weekend special.",
+    note: 'A "Maryland Summer" weekend special.',
     badge: "Seasonal",
     price: P,
     image: "sandwich-loaves-on-crate",
@@ -143,8 +144,18 @@ export const menu: MenuItem[] = [
     image: "cinnamon-rolls-singles-crate",
   },
   { name: "Apple cinnamon rolls", category: "rolls-buns", price: P },
-  { name: "Caramel apple cinnamon rolls", category: "rolls-buns", price: P, image: "caramel-apple-cinnamon-rolls" },
-  { name: "Peach cobbler cinnamon rolls", category: "rolls-buns", price: P, image: "peach-cobbler-cinnamon-rolls" },
+  {
+    name: "Caramel apple cinnamon rolls",
+    category: "rolls-buns",
+    price: P,
+    image: "caramel-apple-cinnamon-rolls",
+  },
+  {
+    name: "Peach cobbler cinnamon rolls",
+    category: "rolls-buns",
+    price: P,
+    image: "peach-cobbler-cinnamon-rolls",
+  },
   { name: "Summer berry sweet rolls", category: "rolls-buns", price: P },
   { name: "Cookies & cream sweet rolls", category: "rolls-buns", price: P },
   {
@@ -184,7 +195,12 @@ export const menu: MenuItem[] = [
   { name: "Mini oatmeal cream pies", category: "cookies", price: P, image: "mini-oatmeal-cream-pies-crate" },
   { name: "Carrot cake", category: "cookies", price: P },
   { name: "Strawberry crunch", category: "cookies", price: P },
-  { name: "Almond croissant", category: "cookies", price: P, image: "almond-croissant-strawberry-crunch-cookies" },
+  {
+    name: "Almond croissant",
+    category: "cookies",
+    price: P,
+    image: "almond-croissant-strawberry-crunch-cookies",
+  },
   { name: "Kitchen sink", category: "cookies", price: P },
   { name: "Cornbread", category: "cookies", price: P },
   { name: "Double chocolate", category: "cookies", price: P, image: "drizzled-cookies-tray" },
@@ -220,10 +236,15 @@ export const menu: MenuItem[] = [
     price: P,
     image: "key-lime-coconut-cupcakes",
   },
-  { name: "Fudge \"cosmic\" brownies", category: "scones-cakes", price: P, image: "cosmic-brownie-in-hand" },
+  { name: 'Fudge "cosmic" brownies', category: "scones-cakes", price: P, image: "cosmic-brownie-in-hand" },
   { name: "Double chocolate sourdough brownies", category: "scones-cakes", price: P },
   { name: "Cake pops", category: "scones-cakes", price: P, image: "cake-pops" },
-  { name: "Strawberry white chocolate pop tarts", category: "scones-cakes", price: P, image: "strawberry-pop-tarts" },
+  {
+    name: "Strawberry white chocolate pop tarts",
+    category: "scones-cakes",
+    price: P,
+    image: "strawberry-pop-tarts",
+  },
   {
     name: "Rice Krispie treats",
     category: "scones-cakes",
@@ -252,7 +273,13 @@ export const menu: MenuItem[] = [
 // ── This Weekend ───────────────────────────────────────────────────────────
 
 export type WeekendGroup = "Sourdough" | "Baked goods" | "Also at the stand";
-export type WeekendItem = { group: WeekendGroup; item: string; note?: string; badge?: string; available: boolean };
+export type WeekendItem = {
+  group: WeekendGroup;
+  item: string;
+  note?: string;
+  badge?: string;
+  available: boolean;
+};
 export type WeekendBoard = { updated: string; items: WeekendItem[]; source: "sheet" | "fallback" };
 
 /** Used when the Google Sheet isn't set up or can't be reached. Keep it roughly current. */
@@ -265,7 +292,7 @@ export const weekendFallback: WeekendBoard = {
     { group: "Sourdough", item: "Rosemary Garlic Parmesan", available: true, badge: "Fan favorite" },
     { group: "Baked goods", item: "Sourdough bagels", available: true },
     { group: "Baked goods", item: "Cinnamon rolls", available: true, badge: "Best-seller" },
-    { group: "Baked goods", item: "Fudge \"cosmic\" brownies", available: true },
+    { group: "Baked goods", item: 'Fudge "cosmic" brownies', available: true },
     { group: "Baked goods", item: "Apple cider donuts", available: true, badge: "Fall staple" },
     { group: "Baked goods", item: "Brown butter chocolate chip cookies", available: true },
     { group: "Also at the stand", item: "Chicken & duck eggs", available: true }, // [CONFIRM: eggs still available]

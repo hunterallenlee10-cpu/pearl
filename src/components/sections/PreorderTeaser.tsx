@@ -10,7 +10,10 @@ export function PreorderTeaser({ now = new Date() }: { now?: Date }) {
 
   if (campaign) {
     return (
-      <section aria-labelledby="preorder-title" className="relative overflow-hidden bg-parchment py-24 md:py-32">
+      <section
+        aria-labelledby="preorder-title"
+        className="bg-parchment relative overflow-hidden py-24 md:py-32"
+      >
         <div className="container-page grid items-center gap-14 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <p className="eyebrow text-wheat-ink" data-reveal>
@@ -54,11 +57,23 @@ export function PreorderTeaser({ now = new Date() }: { now?: Date }) {
   }
 
   return (
-    <section aria-labelledby="preorder-title" className="relative overflow-hidden bg-parchment py-24 md:py-32">
+    <section
+      aria-labelledby="preorder-title"
+      className="bg-parchment relative overflow-hidden py-24 md:py-32"
+    >
       <div className="container-page grid items-center gap-14 md:grid-cols-2">
-        <div className="relative aspect-[4/5] overflow-hidden rounded-[var(--radius-card)] shadow-lift" data-reveal data-cursor="view">
-          <Img id={cinnamonRollCake.image} fill sizes="(min-width: 768px) 45vw, 92vw" className="h-full w-full" />
-          <span className="absolute top-4 left-4 rounded-full bg-flour px-4 py-2 font-hand text-xl text-crust shadow-soft">
+        <div
+          className="shadow-lift relative aspect-[4/5] overflow-hidden rounded-[var(--radius-card)]"
+          data-reveal
+          data-cursor="view"
+        >
+          <Img
+            id={cinnamonRollCake.image}
+            fill
+            sizes="(min-width: 768px) 45vw, 92vw"
+            className="h-full w-full"
+          />
+          <span className="bg-flour font-hand text-crust shadow-soft absolute top-4 left-4 rounded-full px-4 py-2 text-xl">
             {cinnamonRollCake.badge}
           </span>
         </div>
