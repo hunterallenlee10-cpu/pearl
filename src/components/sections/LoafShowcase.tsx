@@ -69,11 +69,11 @@ export function LoafShowcase() {
       >
         Skip the loaves
       </a>
-      <LoafMotion count={LOAVES.length + 2}>
+      <LoafMotion>
         <div data-track className="loaves-track flex">
           {/* intro */}
-          <div data-panel className="loaf-panel flex items-center">
-            <div className="container-page">
+          <div data-panel className="loaf-panel loaf-intro flex items-center">
+            <div className="w-full px-[var(--gutter)] md:pr-0">
               <p className="eyebrow text-wheat-ink">The loaves</p>
               <h2 id="loaves-title" className="display-lg mt-4 max-w-[12ch]">
                 Same board. <em className="italic">Different</em> loaf every weekend.
@@ -97,23 +97,14 @@ export function LoafShowcase() {
               <p
                 data-bigname
                 aria-hidden
-                className="outline-text font-display pointer-events-none absolute top-1/2 left-1/2 z-0 w-max max-w-none -translate-y-1/2 text-[clamp(5rem,15vw,15rem)] leading-[0.85] font-semibold whitespace-nowrap select-none"
+                className="outline-text font-display pointer-events-none absolute top-1/2 left-1/2 z-0 w-max max-w-none -translate-y-1/2 text-[clamp(4.5rem,11vw,12rem)] leading-[0.85] font-semibold whitespace-nowrap select-none"
                 style={{ translate: "-50% 0" }}
               >
                 {l.big}
               </p>
 
-              <div className="relative z-10 grid w-full max-w-7xl items-center gap-8 px-[var(--gutter)] md:grid-cols-[1fr_auto_1fr]">
-                <div className="order-2 md:order-1 md:self-end md:pb-10">
-                  <p className="font-display text-wheat-ink text-xl">
-                    0{i + 1} <span className="text-crust/40">/ 0{LOAVES.length}</span>
-                  </p>
-                  <h3 id={`loaf-${i}`} className="font-display mt-2 text-4xl leading-none md:text-5xl">
-                    {l.name}
-                  </h3>
-                </div>
-
-                <div className="relative order-1 justify-self-center md:order-2">
+              <div className="relative z-10 flex w-full flex-col items-center px-[var(--gutter)]">
+                <div className="relative">
                   <div
                     className="loaf-disc relative aspect-square overflow-hidden rounded-full shadow-[0_40px_70px_-30px_rgb(42_27_18/0.55),0_10px_20px_-10px_rgb(42_27_18/0.3)]"
                     data-cursor="view"
@@ -145,15 +136,21 @@ export function LoafShowcase() {
                   </span>
                 </div>
 
-                <p className="order-3 max-w-xs text-lg leading-snug md:self-start md:justify-self-end md:pt-10">
-                  {l.note}
-                </p>
+                <div className="mt-8 max-w-md text-center md:mt-10">
+                  <p className="font-display text-wheat-ink text-xl">
+                    0{i + 1} <span className="text-crust/40">/ 0{LOAVES.length}</span>
+                  </p>
+                  <h3 id={`loaf-${i}`} className="font-display mt-2 text-4xl leading-none md:text-5xl">
+                    {l.name}
+                  </h3>
+                  <p className="text-crust-soft mt-3 text-lg leading-snug">{l.note}</p>
+                </div>
               </div>
             </article>
           ))}
 
           {/* finale */}
-          <div data-panel className="loaf-panel flex items-center overflow-hidden">
+          <div data-panel className="loaf-panel loaf-finale flex items-center overflow-hidden">
             <div className="w-full">
               <div className="container-page grid items-center gap-10 md:grid-cols-[1.4fr_1fr]">
                 <div>
@@ -202,10 +199,15 @@ export function LoafShowcase() {
         .loaves-track { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
         .loaves-track::-webkit-scrollbar { display: none; }
         .loaf-disc { width: min(78vw, 26rem); }
-        .loaf-panel:first-child, .loaf-panel:last-child { width: 100vw; }
+        .loaf-intro { width: 80vw; }
+        .loaf-finale { width: 100vw; }
+        /* Desktop: panels narrower than the screen so the next loaf is always peeking in,
+           and there's never an empty stretch between panels. */
         @media (min-width: 768px) {
-          .loaf-panel { width: 100vw; height: 100svh; min-height: 640px; padding-block: 0; }
-          .loaf-disc { width: min(58vh, 36vw); }
+          .loaf-panel { width: max(34rem, 56vw); height: 100svh; min-height: 640px; padding-block: 0; }
+          .loaf-intro { width: max(30rem, 42vw); }
+          .loaf-finale { width: max(40rem, 74vw); }
+          .loaf-disc { width: min(52vh, 30vw); }
           html.js .loaves-track { overflow: visible; scroll-snap-type: none; }
         }
         .sticker {

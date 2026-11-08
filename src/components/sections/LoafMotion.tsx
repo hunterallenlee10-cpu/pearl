@@ -10,7 +10,7 @@ import type { ScrollTrigger } from "gsap/ScrollTrigger";
  * Mobile: native swipe row with snap, rotation tied to swipe position.
  * Reduced motion: plain vertical stack (CSS), no JS motion.
  */
-export function LoafMotion({ children, count }: { children: ReactNode; count: number }) {
+export function LoafMotion({ children }: { children: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
   const stRef = useRef<ScrollTrigger | null>(null);
 
@@ -20,8 +20,10 @@ export function LoafMotion({ children, count }: { children: ReactNode; count: nu
     mm.add("(min-width: 768px)", () => {
       const track = scope.querySelector<HTMLElement>("[data-track]")!;
       const panels = gsap.utils.toArray<HTMLElement>("[data-panel]", scope);
-      // Distance = where the last panel starts (scrollWidth would include the overflowing outlined names).
-      const dist = () => panels[panels.length - 1].offsetLeft;
+      // Distance = until the last panel's right edge meets the screen's right edge
+      // (scrollWidth would include the overflowing outlined names).
+      const last = panels[panels.length - 1];
+      const dist = () => Math.max(0, last.offsetLeft + last.offsetWidth - window.innerWidth);
       const tween = gsap.to(track, {
         x: () => -dist(),
         ease: "none",
@@ -47,8 +49,11 @@ export function LoafMotion({ children, count }: { children: ReactNode; count: nu
           scrub: true,
         };
         if (spin) gsap.fromTo(spin, { rotate: -70 }, { rotate: 110, ease: "none", scrollTrigger: st });
-        if (big)
+        if (big) {
           gsap.fromTo(big, { xPercent: 22 }, { xPercent: -22, ease: "none", scrollTrigger: { ...st } });
+          // only the name of the loaf in the middle shows, so neighbouring names never pile up
+          gsap.to(big, { keyframes: { opacity: [0, 0, 1, 0, 0] }, ease: "none", scrollTrigger: { ...st } });
+        }
       });
       return () => {
         stRef.current = null;
@@ -93,7 +98,12 @@ export function LoafMotion({ children, count }: { children: ReactNode; count: nu
     if (!st || !panel || !ref.current) return;
     const panels = Array.from(ref.current.querySelectorAll("[data-panel]"));
     const i = panels.indexOf(panel);
-    const y = st.start + ((st.end - st.start) * i) / (count - 1);
+    // Centre the focused panel on screen (clamped to the track's ends).
+    const lastPanel = panels[panels.length - 1] as HTMLElement;
+    const dist = Math.max(1, lastPanel.offsetLeft + lastPanel.offsetWidth - window.innerWidth);
+    const p = panel.offsetLeft + panel.offsetWidth / 2 - window.innerWidth / 2;
+    const progress = Math.min(1, Math.max(0, p / dist));
+    const y = st.start + (st.end - st.start) * progress;
     // Run after the browser's own focus-scroll, which would otherwise nudge the pinned track.
     const go = () => {
       const lenis = getLenis();
