@@ -133,6 +133,7 @@ export function TrailerToFarmstand({ showLink = true }: { showLink?: boolean }) 
                   data-morph
                   className="shadow-lift relative aspect-square overflow-hidden rounded-[var(--radius-card)]"
                 >
+                  {/* before: the trailer */}
                   <div className="absolute inset-0">
                     <Img
                       id="HERO-trailer-wide-green-field"
@@ -140,7 +141,11 @@ export function TrailerToFarmstand({ showLink = true }: { showLink?: boolean }) 
                       sizes="(min-width: 768px) 40vw, 85vw"
                       className="h-full w-full"
                     />
+                    <span className="bg-flour/90 text-crust absolute bottom-3 left-3 rounded-full px-3 py-1 text-sm font-semibold">
+                      2025: the trailer
+                    </span>
                   </div>
+                  {/* after: the farmstand, wiped in from the right as you scroll */}
                   <div data-morph-to className="absolute inset-0">
                     <Img
                       id="HERO-shed-exterior-fall-field"
@@ -148,15 +153,15 @@ export function TrailerToFarmstand({ showLink = true }: { showLink?: boolean }) 
                       sizes="(min-width: 768px) 40vw, 85vw"
                       className="h-full w-full"
                     />
-                  </div>
-                  <p className="absolute bottom-3 left-3 flex gap-2 text-sm font-semibold">
-                    <span data-label-from className="bg-flour/90 text-crust rounded-full px-3 py-1">
-                      2025: the trailer
-                    </span>
-                    <span data-label-to className="bg-crust text-flour rounded-full px-3 py-1">
+                    <span className="bg-crust text-flour absolute right-3 bottom-3 rounded-full px-3 py-1 text-sm font-semibold">
                       Now: the farmstand
                     </span>
-                  </p>
+                  </div>
+                  <div
+                    data-morph-edge
+                    aria-hidden
+                    className="bg-flour pointer-events-none absolute inset-y-0 left-full w-1 -translate-x-1/2 shadow-[0_0_18px_rgb(42_27_18/0.45)]"
+                  />
                 </div>
                 <div className="text-crust pointer-events-none absolute -top-14 -left-4 flex items-end gap-1 md:-top-20 md:-left-28">
                   <svg aria-hidden viewBox="0 0 160 90" className="w-32 md:w-40">
@@ -196,12 +201,9 @@ export function TrailerToFarmstand({ showLink = true }: { showLink?: boolean }) 
         </div>
       </TimelineMotion>
       <style>{`
-        [data-label-to] { opacity: 0; }
-        html:not(.js) [data-morph-to], html:not(.js) [data-label-to] { opacity: 1; }
         @media (prefers-reduced-motion: reduce) {
-          [data-morph-to] { opacity: 1 !important; }
-          [data-label-to] { opacity: 1 !important; }
-          [data-label-from] { display: none; }
+          [data-morph-to] { clip-path: none !important; }
+          [data-morph-edge] { display: none; }
         }
       `}</style>
     </section>
