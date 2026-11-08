@@ -58,7 +58,12 @@ export const business = {
   // [BAKER FIRST NAME — confirm]. Stays out of all copy while null.
   bakerFirstName: null as string | null,
 
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://pearl-bakery.vercel.app", // [CONFIRM: domain]
+  // Real domain once there is one ([CONFIRM: domain]); until then Vercel's production URL, then localhost.
+  siteUrl:
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    (process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : "http://localhost:3000"),
 };
 
 export const maps = {
