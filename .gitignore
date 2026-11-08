@@ -1,0 +1,12 @@
+node_modules/
+.next/
+out/
+.vercel/
+.env*
+!.env.example
+*.tsbuildinfo
+next-env.d.ts
+.DS_Store
+# originals stay out of git once imported (processed images live in public/images)
+_source-photos/
+photos-*.zip
