@@ -42,6 +42,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
   openGraph: { siteName: "Pearl Bakery", locale: "en_US", type: "website" },
   formatDetection: { telephone: true, address: true, email: true },
+  // noindex until the real domain is configured (see src/app/robots.ts)
+  robots: process.env.NEXT_PUBLIC_SITE_URL ? { index: true, follow: true } : { index: false, follow: false },
 };
 
 export const viewport: Viewport = {
