@@ -1,4 +1,3 @@
-import { Preloader } from "@/components/sections/Preloader";
 import { Hero } from "@/components/sections/Hero";
 import { ChalkboardWeekend } from "@/components/sections/ChalkboardWeekend";
 import { LoafShowcase } from "@/components/sections/LoafShowcase";
@@ -17,7 +16,6 @@ export const revalidate = 300;
 export default function Home() {
   return (
     <>
-      <Preloader />
       <Hero />
       <ChalkboardWeekend />
       <LoafShowcase />

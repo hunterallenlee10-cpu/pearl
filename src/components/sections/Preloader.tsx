@@ -1,5 +1,15 @@
 "use client";
 import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
+
+// A gentle curved score across the middle of the screen; the two halves are exact complements.
+const WAVE = Array.from({ length: 13 }, (_, i) => {
+  const x = (i / 12) * 100;
+  const y = 50 + Math.sin((i / 12) * Math.PI * 2.2 + 0.4) * 2.2;
+  return `${x.toFixed(1)}% ${y.toFixed(2)}%`;
+});
+const TOP_CLIP = `polygon(0 0, 100% 0, ${[...WAVE].reverse().join(", ")})`;
+const BOTTOM_CLIP = `polygon(${WAVE.join(", ")}, 100% 100%, 0 100%)`;
 
 const KEY = "pearl:proofed";
 
@@ -10,6 +20,12 @@ const KEY = "pearl:proofed";
  * reduced motion or once it has played.
  */
 export function Preloader() {
+  const pathname = usePathname();
+  if (pathname !== "/") return null;
+  return <PreloaderInner />;
+}
+
+function PreloaderInner() {
   const root = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -107,23 +123,15 @@ export function Preloader() {
     };
   }, []);
 
-  const half = "absolute inset-x-0 bg-flour";
+  const half = "absolute inset-0 bg-flour";
   return (
     <div ref={root} className="preloader fixed inset-0 z-[80] cursor-pointer" role="presentation" aria-hidden>
       {/* the two halves split along a curved score */}
-      <div data-top className={`${half} top-0 h-[50.5vh]`} style={{ clipPath: "url(#score-top)" }} />
-      <div data-bottom className={`${half} bottom-0 h-[50.5vh]`} style={{ clipPath: "url(#score-bottom)" }} />
-      <svg width="0" height="0" className="absolute">
-        <clipPath id="score-top" clipPathUnits="objectBoundingBox">
-          <path d="M0 0H1V.94C.8 1 .62.9.5.95S.18 1.02 0 .93Z" />
-        </clipPath>
-        <clipPath id="score-bottom" clipPathUnits="objectBoundingBox">
-          <path d="M0 .07C.18-.02.32.1.5.05S.8 0 1 .06V1H0Z" />
-        </clipPath>
-      </svg>
+      <div data-top className={half} style={{ clipPath: TOP_CLIP }} />
+      <div data-bottom className={half} style={{ clipPath: BOTTOM_CLIP }} />
 
       <div data-stage className="absolute inset-0 flex flex-col items-center justify-center text-crust">
-        <svg viewBox="0 0 200 200" className="h-40 w-40 overflow-visible md:h-48 md:w-48">
+        <svg viewBox="0 0 200 200" className="h-44 w-44 overflow-visible md:h-60 md:w-60">
           <g data-dough style={{ transformOrigin: "100px 170px", transformBox: "view-box" }}>
             <path
               d="M24 150c-6-52 30-92 76-92s82 40 76 92c-2 14-34 22-76 22s-74-8-76-22z"

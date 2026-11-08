@@ -5,6 +5,7 @@ import { SiteNav } from "@/components/nav/SiteNav";
 import { SiteFooter } from "@/components/nav/SiteFooter";
 import { MotionProvider } from "@/components/motion/MotionProvider";
 import { Cursor } from "@/components/motion/Cursor";
+import { Preloader } from "@/components/sections/Preloader";
 import { bakeryJsonLd, siteUrl } from "@/lib/seo";
 import "./globals.css";
 
@@ -49,7 +50,7 @@ export const viewport: Viewport = {
 
 // Runs before paint: marks JS as available and skips the preloader if it already played this
 // session or the visitor prefers reduced motion.
-const boot = `(function(){var d=document.documentElement;d.classList.add('js');try{if(sessionStorage.getItem('pearl:proofed')||matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('proofed')}catch(e){d.classList.add('proofed')}})()`;
+const boot = `(function(){var d=document.documentElement;d.classList.add('js');try{if(sessionStorage.getItem('pearl:proofed')||matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('proofed','hero-go')}catch(e){d.classList.add('proofed','hero-go')}})()`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -65,6 +66,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to content
         </a>
+        <Preloader />
         <SiteNav />
         <main id="main" tabIndex={-1} className="relative z-10 bg-flour outline-none md:mb-0">
           {children}
