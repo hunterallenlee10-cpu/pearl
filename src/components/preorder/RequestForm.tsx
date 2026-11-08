@@ -145,7 +145,7 @@ export function RequestForm({
         </button>
         <a
           href={`mailto:${business.email}`}
-          className="decoration-wheat text-sm font-semibold underline underline-offset-4"
+          className="decoration-wheat inline-flex min-h-11 items-center text-sm font-semibold underline underline-offset-4"
         >
           or email {business.email}
         </a>
