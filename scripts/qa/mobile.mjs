@@ -32,6 +32,9 @@ for (const devName of ["iPhone 15", "Pixel 7"]) {
   const preloaderGone =
     (await p.locator(".preloader").count()) === 0 || !(await p.locator(".preloader").isVisible());
   ok(`${devName}: preloader plays once and clears`, hadPreloader > 0 && preloaderGone);
+  // If React had to throw away the server HTML (hydration error), the boot classes on <html> are lost.
+  const hydrated = await p.evaluate(() => document.documentElement.classList.contains("js"));
+  ok(`${devName}: home hydrates cleanly (no re-render from scratch)`, hydrated);
   await p.screenshot({ path: `${dir}/${tag}-01-hero.png` });
 
   // 2. mobile menu opens, traps, closes, navigates
@@ -127,7 +130,9 @@ for (const devName of ["iPhone 15", "Pixel 7"]) {
       [...document.querySelectorAll("a, button, summary, input:not([type=hidden]), select, textarea")]
         .filter(
           (e) =>
-            e.offsetParent !== null && !e.closest("[aria-hidden=true]") && !e.matches(".sr-only-focusable, .sr-only"),
+            e.offsetParent !== null &&
+            !e.closest("[aria-hidden=true]") &&
+            !e.matches(".sr-only-focusable, .sr-only"),
         )
         .map((e) => ({ e, r: e.getBoundingClientRect() }))
         .filter(
