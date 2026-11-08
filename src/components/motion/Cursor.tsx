@@ -40,13 +40,24 @@ export function Cursor() {
         y = ty;
         el.style.opacity = "1";
       }
-      const t = e.target as Element | null;
+      update(e.target as Element | null);
+    };
+    const update = (t: Element | null) => {
       const target = t?.closest?.("[data-cursor], a, button, input, select, textarea, label");
       if (!target) return setMode("");
       const explicit = target.getAttribute("data-cursor");
       if (explicit === "view" || explicit === "external") return setMode(explicit);
       if (target instanceof HTMLAnchorElement && target.target === "_blank") return setMode("external");
       setMode("link");
+    };
+    // Scrolling moves content under a still mouse: re-check what's underneath.
+    let scrollRaf = 0;
+    const onScroll = () => {
+      if (!visible || scrollRaf) return;
+      scrollRaf = requestAnimationFrame(() => {
+        scrollRaf = 0;
+        update(document.elementFromPoint(tx, ty));
+      });
     };
     const leave = () => {
       visible = false;
@@ -60,10 +71,13 @@ export function Cursor() {
     };
     raf = requestAnimationFrame(loop);
     window.addEventListener("pointermove", move, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
     document.documentElement.addEventListener("pointerleave", leave);
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("pointermove", move);
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(scrollRaf);
       document.documentElement.removeEventListener("pointerleave", leave);
     };
   }, [enabled]);

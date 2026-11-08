@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, type RefObject } from "react";
+import { useEffect, useLayoutEffect, useRef, type RefObject } from "react";
 import { loadGsap, prefersReducedMotion, type Gsap, type ScrollTriggerT } from "./gsap";
 
 type Setup = (ctx: {
@@ -19,9 +19,10 @@ export function useGsap(scope: RefObject<HTMLElement | null>, setup: Setup, deps
     setupRef.current = setup;
   });
 
+  const revertRef = useRef<(() => void) | null>(null);
+
   useEffect(() => {
     let cancelled = false;
-    let revert: (() => void) | undefined;
     loadGsap().then(({ gsap, ScrollTrigger }) => {
       if (cancelled || !scope.current) return;
       const el = scope.current;
@@ -29,15 +30,26 @@ export function useGsap(scope: RefObject<HTMLElement | null>, setup: Setup, deps
       const ctx = gsap.context(() => {
         extra = setupRef.current({ gsap, ScrollTrigger, reduced: prefersReducedMotion(), scope: el });
       }, el);
-      revert = () => {
+      revertRef.current = () => {
         if (typeof extra === "function") extra();
         ctx.revert();
       };
     });
     return () => {
       cancelled = true;
-      revert?.();
+      revertRef.current?.();
+      revertRef.current = null;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
+
+  // On unmount, undo pins and wrappers in the layout phase, i.e. *before* React removes the DOM.
+  // (Passive-effect cleanup runs after removal, when a pin spacer would already have confused React.)
+  useLayoutEffect(
+    () => () => {
+      revertRef.current?.();
+      revertRef.current = null;
+    },
+    [],
+  );
 }
