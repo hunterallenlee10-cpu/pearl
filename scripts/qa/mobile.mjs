@@ -147,6 +147,21 @@ for (const devName of ["iPhone 15", "Pixel 7"]) {
   let small = await smallTargets();
   ok(`${devName}: / tap targets ≥ 24px`, small.length === 0, small.slice(0, 5).join("; "));
 
+  // 10b. navigate away from the fully-scrolled home page using the slide-out menu
+  // (the header hides while scrolling down; a small scroll up brings it back, as for a real visitor)
+  await p.evaluate(() => scrollBy(0, -200));
+  await p.waitForTimeout(700);
+  await p.getByRole("button", { name: "Menu" }).tap();
+  await p.waitForTimeout(800);
+  await p.locator("#mobile-menu").getByRole("link", { name: "Pre-Order" }).tap();
+  await p.waitForURL("**/pre-order", { timeout: 8000 }).catch(() => {});
+  await p.waitForTimeout(900);
+  const crashed = /couldn.t load|Application error/i.test((await p.locator("body").textContent()) || "");
+  ok(
+    `${devName}: menu link from home navigates without crashing`,
+    !crashed && new URL(p.url()).pathname === "/pre-order",
+  );
+
   // 11. other pages
   for (const r of ["/menu", "/pre-order", "/visit", "/story"]) {
     await p.goto(base + r, { waitUntil: "networkidle" });

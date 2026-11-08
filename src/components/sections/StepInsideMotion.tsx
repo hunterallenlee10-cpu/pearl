@@ -50,8 +50,10 @@ export function StepInsideMotion({ children }: { children: ReactNode }) {
     mm.add("(min-width: 768px)", () => {
       build(
         gsap.timeline({
+          // Pin our own wrapper, not the <section>: the pin wraps the pinned element in a spacer,
+          // and React must still find the section where it put it when the page changes.
           scrollTrigger: {
-            trigger: section,
+            trigger: scope,
             start: "top top",
             end: "+=180%",
             pin: true,

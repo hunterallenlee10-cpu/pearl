@@ -62,10 +62,9 @@ function PreloaderInner() {
       });
       top.animate([{ transform: "translateY(0)" }, { transform: "translateY(-102%)" }], opts);
       const last = bottom.animate([{ transform: "translateY(0)" }, { transform: "translateY(102%)" }], opts);
-      last.onfinish = () => {
-        html.classList.add("proofed");
-        el.remove();
-      };
+      // Hide (html.proofed → display:none) rather than removing the node ourselves: React owns it,
+      // and removing it behind React's back crashes the next page navigation.
+      last.onfinish = () => html.classList.add("proofed");
     };
 
     // rise (elastic-ish via keyframe overshoot)
