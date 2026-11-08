@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { usePath } from "@/lib/use-path";
 
 /**
  * Wraps internal link navigations in the View Transitions API so pages change with a soft
@@ -9,7 +10,7 @@ import { usePathname, useRouter } from "next/navigation";
  */
 export function ViewTransitions() {
   const router = useRouter();
-  const pathname = usePathname();
+  const pathname = usePath();
   const pending = useRef<(() => void) | null>(null);
 
   useEffect(() => {

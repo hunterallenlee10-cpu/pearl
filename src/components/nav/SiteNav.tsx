@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePath } from "@/lib/use-path";
 import { useEffect, useRef, useState } from "react";
 import { Logo } from "@/components/brand/Logo";
 import { StatusPill } from "./StatusPill";
@@ -8,7 +8,7 @@ import { MobileMenu } from "./MobileMenu";
 import { navLinks } from "./nav-links";
 
 export function SiteNav() {
-  const pathname = usePathname();
+  const pathname = usePath();
   const [atTop, setAtTop] = useState(true);
   const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
