@@ -22,22 +22,24 @@ export function TimelineMotion({ children }: { children: ReactNode }) {
     }
     const morph = scope.querySelector("[data-morph]");
     if (morph) {
+      // A clean wipe (no muddy double exposure) that is finished by the time the photo is
+      // centred on screen, so you always see both photos crisp, then the farmstand.
       const tl = gsap.timeline({
-        scrollTrigger: { trigger: morph, start: "top 75%", end: "bottom 45%", scrub: 0.8 },
+        scrollTrigger: { trigger: morph, start: "top 75%", end: "center 55%", scrub: 0.5 },
       });
       tl.fromTo(
         morph.querySelector("[data-morph-to]"),
-        { opacity: 0, scale: 1.08, filter: "blur(8px)" },
-        { opacity: 1, scale: 1, filter: "blur(0px)", ease: "none" },
+        { clipPath: "inset(0% 0% 0% 100%)" },
+        { clipPath: "inset(0% 0% 0% 0%)", ease: "power1.inOut" },
         0,
       )
-        .to(morph.querySelector("[data-label-from]"), { opacity: 0, ease: "none", duration: 0.3 }, 0.4)
         .fromTo(
-          morph.querySelector("[data-label-to]"),
-          { opacity: 0 },
-          { opacity: 1, ease: "none", duration: 0.3 },
-          0.6,
-        );
+          morph.querySelector("[data-morph-edge]"),
+          { left: "100%", opacity: 1 },
+          { left: "0%", ease: "power1.inOut" },
+          0,
+        )
+        .to(morph.querySelector("[data-morph-edge]"), { opacity: 0, duration: 0.1 }, 0.95);
       const dots = scope.querySelector("[data-dots]");
       if (dots)
         gsap.fromTo(
