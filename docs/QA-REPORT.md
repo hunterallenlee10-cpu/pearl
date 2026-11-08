@@ -16,6 +16,20 @@ Columns: Performance · Accessibility · Best Practices · SEO · LCP · CLS · 
 | visit     | 85       | 100 | 100 | 100 | 4.2 s | 0   | 90 ms  | 99        | 100 | 100 | 100 | 0.9 s | 0     | 0 ms  |
 | story     | 87       | 100 | 100 | 100 | 4.0 s | 0   | 50 ms  | 99        | 100 | 100 | 100 | 0.9 s | 0     | 0 ms  |
 
+### On the live deployment (https://pearl-bakery-site.vercel.app, mobile)
+
+| Page      | Performance | A   | BP  | SEO | LCP   | TBT    |
+| --------- | ----------- | --- | --- | --- | ----- | ------ |
+| home      | 71          | 100 | 100 | 69* | 3.6 s | 550 ms |
+| menu      | 90          | 100 | 100 | 69* | 3.4 s | 100 ms |
+| pre-order | 92          | 100 | 100 | 69* | 2.9 s | 220 ms |
+| visit     | 94          | 100 | 100 | 69* | 2.9 s | 110 ms |
+| story     | 90          | 100 | 100 | 69* | 3.4 s | 130 ms |
+
+\* SEO is 69 on purpose: until `NEXT_PUBLIC_SITE_URL` is set to the real domain, the site sends `noindex` and
+`robots.txt` disallows crawling, so the pre-launch vercel.app address (with unconfirmed content) never gets indexed.
+With the domain set it scores 100 (as in the table above). Mobile TBT varies run to run on the shared runner.
+
 **Accessibility, Best Practices and SEO hit 100 everywhere. Desktop performance is 95–99. Mobile performance
 (76–87) is under the 95 target.** The real, unthrottled LCP is about 0.2–0.4 s on every page (it's the first paint);
 the 4–5 s figures are Lighthouse's slow-4G simulation, which counts every byte requested before first paint.
