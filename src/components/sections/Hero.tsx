@@ -105,7 +105,7 @@ export function Hero() {
             href={business.facebookReviews}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-flour/90 font-medium underline-offset-4 hover:underline"
+            className="text-flour/90 inline-flex min-h-11 items-center font-medium underline-offset-4 hover:underline"
           >
             <span aria-hidden className="text-wheat">
               ★{" "}

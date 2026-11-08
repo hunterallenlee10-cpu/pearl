@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
-import { usePathname } from "next/navigation";
+import { usePath } from "@/lib/use-path";
 
 // A gentle curved score across the middle of the screen; the two halves are exact complements.
 const WAVE = Array.from({ length: 13 }, (_, i) => {
@@ -20,7 +20,7 @@ const KEY = "pearl:proofed";
  * reduced motion or once it has played.
  */
 export function Preloader() {
-  const pathname = usePathname();
+  const pathname = usePath();
   if (pathname !== "/") return null;
   return <PreloaderInner />;
 }

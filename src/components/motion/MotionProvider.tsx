@@ -1,6 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import { usePathname } from "next/navigation";
+import { usePath } from "@/lib/use-path";
 import { setLenis, loadGsap, prefersReducedMotion } from "./gsap";
 
 /**
@@ -10,7 +10,7 @@ import { setLenis, loadGsap, prefersReducedMotion } from "./gsap";
  * - Refreshes ScrollTrigger after fonts and route changes.
  */
 export function MotionProvider() {
-  const pathname = usePathname();
+  const pathname = usePath();
 
   // Lenis
   useEffect(() => {
