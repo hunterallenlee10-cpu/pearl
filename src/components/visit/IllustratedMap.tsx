@@ -18,20 +18,17 @@ export function IllustratedMap() {
           target="_blank"
           rel="noopener noreferrer"
           className="group shadow-lift ring-crust/10 block overflow-hidden rounded-[var(--radius-card)] bg-[#fbf6ee] ring-1"
-          aria-label={`Open ${business.address.oneLine} in Google Maps`}
           data-cursor="external"
         >
+          <span className="sr-only">
+            Open {business.address.oneLine} in Google Maps. The farmstand is on Medley&rsquo;s Neck Road, just
+            off Route 5 southeast of downtown Leonardtown, across Breton Bay.
+          </span>
           <svg
             viewBox={`120 40 ${mapBox.width - 160} ${mapBox.height - 110}`}
             className="block h-auto w-full"
-            role="img"
-            aria-labelledby="map-title map-desc"
+            aria-hidden
           >
-            <title id="map-title">Map to Pearl Bakery</title>
-            <desc id="map-desc">
-              Pearl Bakery&rsquo;s farmstand is on Medley&rsquo;s Neck Road, just off Route 5 southeast of
-              downtown Leonardtown, across Breton Bay.
-            </desc>
             <defs>
               <pattern
                 id="water-hatch"

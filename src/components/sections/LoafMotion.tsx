@@ -20,7 +20,8 @@ export function LoafMotion({ children, count }: { children: ReactNode; count: nu
     mm.add("(min-width: 768px)", () => {
       const track = scope.querySelector<HTMLElement>("[data-track]")!;
       const panels = gsap.utils.toArray<HTMLElement>("[data-panel]", scope);
-      const dist = () => track.scrollWidth - window.innerWidth;
+      // Distance = where the last panel starts (scrollWidth would include the overflowing outlined names).
+      const dist = () => panels[panels.length - 1].offsetLeft;
       const tween = gsap.to(track, {
         x: () => -dist(),
         ease: "none",
@@ -93,13 +94,18 @@ export function LoafMotion({ children, count }: { children: ReactNode; count: nu
     const panels = Array.from(ref.current.querySelectorAll("[data-panel]"));
     const i = panels.indexOf(panel);
     const y = st.start + ((st.end - st.start) * i) / (count - 1);
-    const lenis = getLenis();
-    if (lenis) lenis.scrollTo(y, { immediate: true });
-    else window.scrollTo({ top: y });
+    // Run after the browser's own focus-scroll, which would otherwise nudge the pinned track.
+    const go = () => {
+      const lenis = getLenis();
+      if (lenis) lenis.scrollTo(y, { immediate: true, force: true });
+      else window.scrollTo({ top: y, behavior: "instant" as ScrollBehavior });
+    };
+    go();
+    requestAnimationFrame(() => requestAnimationFrame(go));
   };
 
   return (
-    <div ref={ref} onFocus={onFocus} className="relative overflow-hidden">
+    <div ref={ref} onFocus={onFocus} className="relative overflow-clip">
       {children}
     </div>
   );

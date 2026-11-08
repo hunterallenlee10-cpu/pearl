@@ -15,7 +15,7 @@ export function Hero() {
   return (
     <section
       aria-labelledby="hero-title"
-      className="hero on-dark bg-espresso text-flour relative isolate flex h-[100svh] min-h-[640px] items-end overflow-hidden"
+      className="hero on-dark bg-espresso text-flour relative isolate flex min-h-[max(100svh,640px)] items-end overflow-hidden"
     >
       <div className="hero-photo absolute inset-0 -z-20">
         <Img
