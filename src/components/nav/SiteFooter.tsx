@@ -25,7 +25,7 @@ export function SiteFooter() {
           </a>
         </div>
 
-        <div className="grid gap-10 sm:grid-cols-2 md:col-span-7 md:grid-cols-3">
+        <div className="grid gap-10 sm:grid-cols-2 md:col-span-7 md:grid-cols-[1fr_1.35fr_0.8fr]">
           <div>
             <h2 className="eyebrow text-wheat">Hours</h2>
             <p className="mt-3">
@@ -49,7 +49,7 @@ export function SiteFooter() {
                 {business.phone}
               </a>
               <br />
-              <a href={`mailto:${business.email}`} className="break-all hover:underline">
+              <a href={`mailto:${business.email}`} className="[overflow-wrap:anywhere] hover:underline">
                 {business.email}
               </a>
             </address>

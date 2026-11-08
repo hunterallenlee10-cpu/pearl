@@ -76,7 +76,7 @@ export function LoafShowcase() {
                 Same board. <em className="italic">Different</em> loaf every weekend.
               </h2>
               <p className="mt-6 max-w-md text-lg text-crust-soft">
-                Four of the regulars from the rotation. Keep scrolling, they spin.
+                Four of the regulars from the rotation. <span className="hidden md:inline">Keep scrolling, they spin.</span><span className="md:hidden">Swipe through, they spin. →</span>
               </p>
             </div>
           </div>
