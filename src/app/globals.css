@@ -1,0 +1,347 @@
+@import "tailwindcss";
+
+/* ── Tokens ─────────────────────────────────────────────────────────────── */
+@theme {
+  --color-flour: #fbf6ee;
+  --color-parchment: #f3eadb;
+  --color-kraft: #e4d2b4;
+  --color-crust: #5b3a24;
+  --color-crust-soft: #7a5a43;
+  --color-espresso: #2a1b12;
+  --color-wheat: #c99a5b;
+  --color-wheat-ink: #8a6131;
+  --color-linen-blue: #8ea4bc;
+  --color-chalk: #f4f1ea;
+  --color-chalkboard: #232624;
+
+  --font-display: var(--font-fraunces), "Iowan Old Style", Georgia, serif;
+  --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+  --font-hand: var(--font-caveat), "Bradley Hand", cursive;
+
+  --ease-dough: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-soft: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --radius-card: 14px;
+  --shadow-soft: 0 10px 30px -14px rgb(91 58 36 / 0.28), 0 2px 6px rgb(91 58 36 / 0.08);
+  --shadow-lift: 0 24px 50px -22px rgb(91 58 36 / 0.38), 0 4px 10px rgb(91 58 36 / 0.1);
+
+  --animate-pulse-dot: pulse-dot 2.4s var(--ease-soft) infinite;
+  --animate-marquee: marquee var(--marquee-duration, 60s) linear infinite;
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgb(201 154 91 / 0.55);
+  }
+  60% {
+    box-shadow: 0 0 0 7px rgb(201 154 91 / 0);
+  }
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+:root {
+  --pearl: linear-gradient(115deg, #fffdf8 0%, #efe6f0 45%, #e6eef2 70%, #fffdf8 100%);
+  --gutter: clamp(1rem, 4vw, 3rem);
+  --nav-h: 4.5rem;
+  color-scheme: light;
+}
+
+/* ── Base ───────────────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    background: var(--color-flour);
+    color: var(--color-crust);
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    scroll-padding-top: calc(var(--nav-h) + 1rem);
+  }
+  body {
+    font-family: var(--font-sans);
+    font-size: clamp(1.0625rem, 0.3vw + 1rem, 1.125rem);
+    line-height: 1.6;
+    background: var(--color-flour);
+    overflow-x: clip;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    line-height: 0.98;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+    font-variation-settings:
+      "SOFT" 100,
+      "WONK" 0,
+      "opsz" 144;
+  }
+  p,
+  li,
+  blockquote {
+    text-wrap: pretty;
+  }
+  ::selection {
+    background: var(--color-wheat);
+    color: var(--color-espresso);
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-wheat);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 6px var(--color-crust);
+    border-radius: 6px;
+  }
+  .on-dark :focus-visible {
+    box-shadow: 0 0 0 6px var(--color-espresso);
+  }
+  img {
+    -webkit-user-drag: none;
+  }
+  a {
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+  }
+}
+
+/* ── Utilities ──────────────────────────────────────────────────────────── */
+@utility container-page {
+  width: 100%;
+  max-width: 88rem;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+@utility display-xl {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7.4vw + 0.6rem, 9.25rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  font-variation-settings:
+    "SOFT" 100,
+    "WONK" 1,
+    "opsz" 144;
+}
+@utility display-lg {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 4.6vw + 0.75rem, 6rem);
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+}
+@utility display-md {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 2.8vw + 0.9rem, 3.75rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+@utility outline-text {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--outline-color, rgb(91 58 36 / 0.28));
+}
+@utility kraft {
+  background-color: #e9d9bd;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgb(91 58 36 / 0.07) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 70% 60%, rgb(91 58 36 / 0.06) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 40% 80%, rgb(255 255 255 / 0.25) 0 1px, transparent 1.5px),
+    linear-gradient(180deg, #ecdcc2, #e2cfae);
+  background-size:
+    7px 7px,
+    11px 11px,
+    13px 13px,
+    100% 100%;
+}
+@utility gingham {
+  background-color: #f3eadb;
+  background-image:
+    linear-gradient(90deg, rgb(91 58 36 / 0.42) 50%, transparent 50%),
+    linear-gradient(0deg, rgb(91 58 36 / 0.42) 50%, transparent 50%);
+  background-size: 22px 22px;
+  background-blend-mode: multiply;
+}
+@utility sr-only-focusable {
+  &:not(:focus):not(:focus-within) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+/* ── Paper grain overlay ────────────────────────────────────────────────── */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.045;
+  mix-blend-mode: multiply;
+  background-image: url("/textures/grain.png");
+  background-size: 96px 96px;
+}
+
+/* ── Reveal helpers (JS sets data-revealed; without JS everything is visible) ── */
+html.reveal-ready [data-reveal]:not([data-revealed]) {
+  opacity: 0;
+  transform: translateY(24px);
+  filter: blur(6px);
+}
+[data-reveal] {
+  transition:
+    opacity 0.9s var(--ease-dough),
+    transform 0.9s var(--ease-dough),
+    filter 0.9s var(--ease-dough);
+  transition-delay: var(--reveal-delay, 0s);
+}
+
+/* ── Buttons ────────────────────────────────────────────────────────────── */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 3.25rem;
+  padding: 0.85rem 1.6rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.2;
+  text-decoration: none;
+  isolation: isolate;
+  overflow: hidden;
+  transition:
+    transform 0.5s var(--ease-dough),
+    background-color 0.3s,
+    color 0.3s,
+    box-shadow 0.5s var(--ease-dough);
+  will-change: transform;
+}
+.btn:active {
+  transform: scale(0.97);
+}
+.btn-primary {
+  background: var(--color-crust);
+  color: var(--color-flour);
+  box-shadow: var(--shadow-soft);
+}
+.btn-primary::after {
+  /* the pearl glint */
+  content: "";
+  position: absolute;
+  inset: -20% auto -20% -60%;
+  width: 45%;
+  background: var(--pearl);
+  opacity: 0;
+  transform: skewX(-20deg);
+  mix-blend-mode: soft-light;
+  z-index: -1;
+}
+.btn-primary:hover {
+  background: var(--color-espresso);
+  box-shadow: var(--shadow-lift);
+}
+.btn-primary:hover::after {
+  animation: glint 0.9s var(--ease-dough);
+}
+.btn-secondary {
+  background: rgb(251 246 238 / 0.85);
+  color: var(--color-crust);
+  box-shadow: inset 0 0 0 1.5px var(--color-crust);
+  backdrop-filter: blur(6px);
+}
+.btn-secondary:hover {
+  background: var(--color-flour);
+}
+.btn-light {
+  background: var(--color-flour);
+  color: var(--color-espresso);
+}
+.btn-light:hover {
+  background: #fff;
+}
+@keyframes glint {
+  from {
+    left: -60%;
+    opacity: 0.9;
+  }
+  to {
+    left: 120%;
+    opacity: 0.9;
+  }
+}
+
+/* ── Reduced motion: everything becomes a simple fade or nothing ────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+  [data-reveal] {
+    transition: opacity 0.4s linear !important;
+  }
+  html.reveal-ready [data-reveal]:not([data-revealed]) {
+    transform: none;
+    filter: none;
+  }
+  .marquee-track {
+    animation: none !important;
+  }
+}
+
+/* ── View transition: flour sweep ───────────────────────────────────────── */
+::view-transition-old(root) {
+  animation: 0.45s var(--ease-soft) both vt-out;
+}
+::view-transition-new(root) {
+  animation: 0.6s var(--ease-dough) both vt-in;
+}
+@keyframes vt-out {
+  to {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+}
+@keyframes vt-in {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}

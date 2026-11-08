@@ -1,0 +1,95 @@
+import type { Metadata, Viewport } from "next";
+import { Caveat, Fraunces, Instrument_Sans } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import { SiteNav } from "@/components/nav/SiteNav";
+import { SiteFooter } from "@/components/nav/SiteFooter";
+import { MotionProvider } from "@/components/motion/MotionProvider";
+import { Cursor } from "@/components/motion/Cursor";
+import { Preloader } from "@/components/sections/Preloader";
+import { ViewTransitions } from "@/components/motion/ViewTransitions";
+import { bakeryJsonLd, siteUrl } from "@/lib/seo";
+import "./globals.css";
+
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  axes: ["SOFT", "WONK"], // opsz dropped: it doubles the file size; headlines already use the display cut
+  style: ["normal", "italic"],
+  variable: "--font-fraunces",
+  display: "swap",
+});
+const instrument = Instrument_Sans({
+  subsets: ["latin"],
+  variable: "--font-instrument",
+  display: "swap",
+});
+const caveat = Caveat({
+  subsets: ["latin"],
+  weight: ["500", "700"],
+  variable: "--font-caveat",
+  display: "swap",
+  preload: false, // only used below the fold (chalkboard, notes)
+});
+
+export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Pearl Bakery · Sourdough farmstand in Leonardtown, MD",
+    template: "%s · Pearl Bakery, Leonardtown MD",
+  },
+  description:
+    "Fresh sourdough, cinnamon rolls and sweet things at a self-serve farmstand on Medley's Neck Rd in Leonardtown, MD. Open Saturdays & Sundays from 9 AM until sold out or sunset.",
+  applicationName: "Pearl Bakery",
+  alternates: { canonical: "/" },
+  openGraph: { siteName: "Pearl Bakery", locale: "en_US", type: "website" },
+  formatDetection: { telephone: true, address: true, email: true },
+  // noindex until the real domain is configured (see src/app/robots.ts)
+  robots: process.env.NEXT_PUBLIC_SITE_URL ? { index: true, follow: true } : { index: false, follow: false },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#FBF6EE",
+  width: "device-width",
+  initialScale: 1,
+};
+
+// Runs before paint: marks JS as available and skips the preloader if it already played this
+// session or the visitor prefers reduced motion.
+const boot = `(function(){var d=document.documentElement;d.classList.add('js');try{if(sessionStorage.getItem('pearl:proofed')||matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('proofed','hero-go')}catch(e){d.classList.add('proofed','hero-go')}})()`;
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html
+      lang="en"
+      className={`${fraunces.variable} ${instrument.variable} ${caveat.variable}`}
+      suppressHydrationWarning
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: boot }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(bakeryJsonLd()) }}
+        />
+      </head>
+      <body>
+        <a
+          href="#main"
+          className="sr-only-focusable bg-crust text-flour fixed top-3 left-3 z-[100] rounded-full px-5 py-3 font-semibold"
+        >
+          Skip to content
+        </a>
+        <Preloader />
+        <SiteNav />
+        <main id="main" tabIndex={-1} className="bg-flour relative z-10 outline-none md:mb-0">
+          {children}
+        </main>
+        <SiteFooter />
+        <div className="grain" aria-hidden />
+        <MotionProvider />
+        <ViewTransitions />
+        <Cursor />
+        {/* Vercel Analytics only exists on Vercel deployments */}
+        {process.env.VERCEL ? <Analytics /> : null}
+      </body>
+    </html>
+  );
+}
