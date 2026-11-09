@@ -2,6 +2,9 @@ import { mapBox, mapLocalRoads, mapMajorRoads, mapMedleysNeck, mapPoints, mapWat
 import { maps, business } from "@/content/business";
 import { MapEmbedToggle } from "./MapEmbedToggle";
 
+/** The visible window into the generated map. */
+const VIEW = { x: 120, y: 40, w: mapBox.width - 160, h: mapBox.height - 110 };
+
 /**
  * Hand-drawn style map from real road and shoreline geometry (Census TIGER). The whole map links
  * to Google Maps; the interactive embed only loads when asked (no third-party requests before).
@@ -25,7 +28,7 @@ export function IllustratedMap() {
             off Route 5 southeast of downtown Leonardtown, across Breton Bay.
           </span>
           <svg
-            viewBox={`120 40 ${mapBox.width - 160} ${mapBox.height - 110}`}
+            viewBox={`${VIEW.x} ${VIEW.y} ${VIEW.w} ${VIEW.h}`}
             className="block h-auto w-full"
             aria-hidden
           >
@@ -39,7 +42,17 @@ export function IllustratedMap() {
               >
                 <path d="M0 5h10" stroke="#8EA4BC" strokeWidth="1.2" strokeOpacity=".55" />
               </pattern>
-              <filter id="wobble" x="-5%" y="-5%" width="110%" height="110%">
+              {/* Region pinned to the visible area. The road/shore paths run thousands of units past
+                  the view, and a bounding-box region that size blows past iOS Safari's filter limit,
+                  which then drops the whole group (only labels showed on phones). */}
+              <filter
+                id="wobble"
+                filterUnits="userSpaceOnUse"
+                x={VIEW.x - 20}
+                y={VIEW.y - 20}
+                width={VIEW.w + 40}
+                height={VIEW.h + 40}
+              >
                 <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="4" />
                 <feDisplacementMap in="SourceGraphic" scale="3.5" />
               </filter>
